@@ -1,0 +1,7 @@
+@apiUrl = http://localhost:3000/api 
+@token = next-auth.csrf-token=616a98418b59468bf5cbbda07f984e7ccd9524c8cec47c7a581ece62dcc9daec%7C209c73d596c4ae11e2b1e7440dacb6410eea58bc67fd640dde9b2824b8bf6b54; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..mVijiWEh3wiaPyln.w8wIIwSeBfPeEN080Q47Gsh199J6Gghlo9KMKA23KXsPbLm-u6PBcAe6bUbM5uV6wz84KhhQnUO-7YmwTGpKtU_e7kAensTPwsJ1ZoHdmxjZLthl5oaH60c_aMyfJ2MzEuBizxVNhjVSpVz8OVsfFgBBfmgtILft-rCtuColWeWjO9Jp78hQ46f9he1GbQJE7u0SMXzzkyMI0-9tispkI1a3a6YGRXOROj5CNDhQAiiaSSM8ru-y5oueaKPcFOReLL2Ogeu9_rSohQDQOm9PsKvIkN2ck8732F4L.A23TCUiHyQ2VapPsD6_FAg
+
+### Datos del usuario
+GET {{apiUrl}}/auth/account
+Cookie: {{token}}
+
