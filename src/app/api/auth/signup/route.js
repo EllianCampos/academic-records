@@ -27,11 +27,12 @@ export async function POST(request) {
 
 	try {
 		// Verify if the user already exists
-		const user = await prisma.users.findUnique({
+		const user = await prisma.users.findFirst({
 			where: {
 				email: email
 			}
 		})
+
 		if (user) {
 			return NextResponse.json({ errorMessage: 'El correo no esta disponible' }, { status: 400 })
 		}

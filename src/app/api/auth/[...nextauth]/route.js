@@ -12,7 +12,7 @@ const handler = NextAuth({
                 password: { label: "Contraseña", type: "password" }
             },
             async authorize(credentials, req) {
-                const user = await prisma.users.findUnique({ where: { email: credentials.email } })
+                const user = await prisma.users.findFirst({ where: { email: credentials.email } })
                 if (!user) throw new Error('Datos de ingreso incorrectos')
                 
                 const passwordMatch = await bcrypt.compare(credentials.password, user.password)
