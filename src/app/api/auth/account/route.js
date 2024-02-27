@@ -3,27 +3,37 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-    // Validate if the request contains a token
-    const token = await getToken({ req })
-    if (!token.user.id) return NextResponse.json({
-        errorMessage: 'Acceso NO autorizado'
-    }, { status: 401 });
+	// Validate if the request contains a token
+	let user = {}
+	try {
+		let token = await getToken({ req })
+		user = token.user
+	} catch (error) {
+		return NextResponse.json({
+			errorMessage: 'Acceso NO autorizado'
+		}, { status: 401 });
+	}
 
-    try {
+	try {
 		// Search 
-		const user = await prisma.users.findUnique({
+		const userFound = await prisma.users.findUnique({
 			where: {
-			    email: token.user.email,
+				id: user.id,
 			}
 		})
 
+		// Validate if the user exists
+		if (!userFound) {
+			return NextResponse.json({ errorMessage: 'El usuario no existe' }, { status: 500 })
+		}
+
 		// Build the response
 		const response = {
-            id: user.id,
-            name: user.name,
-            lastname: user.lastname,
-            email: user.email
-        }
+			id: userFound.id,
+			name: userFound.name,
+			lastname: userFound.lastname,
+			email: userFound.email
+		}
 
 		return NextResponse.json(response)
 

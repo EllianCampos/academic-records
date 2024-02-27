@@ -1,7 +1,153 @@
 @apiUrl = http://localhost:3000/api 
-@token = next-auth.csrf-token=616a98418b59468bf5cbbda07f984e7ccd9524c8cec47c7a581ece62dcc9daec%7C209c73d596c4ae11e2b1e7440dacb6410eea58bc67fd640dde9b2824b8bf6b54; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..mVijiWEh3wiaPyln.w8wIIwSeBfPeEN080Q47Gsh199J6Gghlo9KMKA23KXsPbLm-u6PBcAe6bUbM5uV6wz84KhhQnUO-7YmwTGpKtU_e7kAensTPwsJ1ZoHdmxjZLthl5oaH60c_aMyfJ2MzEuBizxVNhjVSpVz8OVsfFgBBfmgtILft-rCtuColWeWjO9Jp78hQ46f9he1GbQJE7u0SMXzzkyMI0-9tispkI1a3a6YGRXOROj5CNDhQAiiaSSM8ru-y5oueaKPcFOReLL2Ogeu9_rSohQDQOm9PsKvIkN2ck8732F4L.A23TCUiHyQ2VapPsD6_FAg
 
-### Datos del usuario
+### Usuario Publico de prueba /// test@user.com /// test
+# @token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..tf3hwCEOY253JJve.oHMp5XdXsz_tjOYjKQ3HCwoXbQLSVhbz4YIBF4kLxNcG4PEyWRePM6IncjBTStIeLNBFv6hluNi0nM9daDV9Jw3Ii0_H8jifM7MONrmGvxwqj4v1qT40xA6j-WVNFBsCj2SJ9eftTwTjgnAJvelcRz96EdX6Vb7Av3IfKzEvbzZjg8b5sO5RweLazmAmVZp30K89jXTmEcH0B8YwBEg6NdBbFjgX5F2QpOwAVcEKlhhDeW07Xd-VuOqSEiBS3jN6urweV6LK9SM0SXcsWXJzK_gDxz46osDzGGOY.JwYzAryKGleG7eiry2GdcA
+
+### Usuario Secundario de prueba /// secundario@test.com /// test
+@token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rQInbLFO55jA5irt.Bfdqc06VkOmIaWMJ_8ftgBZ5bQrngwSZJFk4d-pASqmLcozohEDCCNYhTxhQGqzYRXP-_7UzuDkCi9PqES9kNTUFd3jh08cQ4JQdxEvnUl5qhDOHXg03e8AaXV5BcIdiN0O2TBRoL15Pp9wRCpKkP9rUOE3C8Qnq_dPckjIWYuc3ylqVVPUUrDDl3JRh-tJ13bpoMgCvzN9XbW4d180cdMfAJeOyS-MJHRohL5nNEv7YvtTTwZAPk5O0WarBtRS_EgIE9WbsH0vSSxv2u5iRtigOOBxwKVLn5dXeurU7sQWQstSgl2FgVkQb.ZEWhH7WfDLMWHTDeZT-GLg
+
+
+
+### Obtener informacion de usuario por medio del token
 GET {{apiUrl}}/auth/account
 Cookie: {{token}}
 
+### Enviar comentarios anoninos
+POST {{apiUrl}}/comments
+Content-Type: application/json
+
+{
+    "description": "Excelente aplicación"
+}
+
+############################### Cusos
+### Crear curso
+POST {{apiUrl}}/courses
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "name": "SQL",
+    "durationHours": 50,
+    "schedule": "Lunes, Miercoles y Jueves",
+    "startDate": "2024-02-02",
+    "endDate": "2024-02-03",
+    "quota": 25,
+    "isFinished": false
+}
+
+### Obtener todos los cursos
+GET {{apiUrl}}/courses
+Cookie: {{token}}
+
+### Obtener un curso
+GET {{apiUrl}}/courses/3iww
+Cookie: {{token}}
+
+### Actualizar curso
+PUT {{apiUrl}}/courses/yrb9
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "name": "SQL",
+    "durationHours": 50,
+    "schedule": "Todos los dias",
+    "startDate": "2024-02-02",
+    "endDate": "2024-02-03",
+    "quota": 25,
+    "isFinished": false
+}
+
+### Eliminar curso si es el creador
+### Abandonar si es colaborador
+DELETE {{apiUrl}}/courses/763l
+Cookie: {{token}}
+
+############################### Compartir cursos
+### enviar invitacion
+POST {{apiUrl}}/courses/share?coursecode=3iww&emailreceptor=secundario@test.com
+Cookie: {{token}}
+
+### consultar mis invitaciones
+GET {{apiUrl}}/courses/share
+Cookie: {{token}}
+
+### aceptar una invitación
+POST {{apiUrl}}/courses/share/accept
+Cookie: {{token}}
+Content-Type: application/json
+
+{
+    "courseCode": "3iww"
+}
+
+### rechazar una invitación
+POST {{apiUrl}}/courses/share/decline
+Cookie: {{token}}
+Content-Type: application/json
+
+{
+    "courseCode": "75ic"
+}
+
+
+############################### Estudiantes
+
+### Crear estudiante
+POST {{apiUrl}}/students
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "wun6",
+    "cedula": 111111111,
+    "name": "Marian",
+    "lastname": "",
+    "bornDate": "2003-06-03",
+    "gender": "Masculino",
+    "phone": "8483-8466",
+    "email": "ellian.campos12@gmail.com",
+    "disability": "NO",
+    "disabilityDescription": "",
+    "provincia": "",
+    "canton": "",
+    "distrito": "",
+    "comunidad": "",
+    "observations": ""
+}
+
+### Obtener los estudiantes de un curso
+GET {{apiUrl}}/students?courseCode=3iww
+Cookie: {{token}}
+
+### Obtener un estudiante de un curso por la cedula
+GET {{apiUrl}}/students/111111111?courseCode=3iww
+Cookie: {{token}}
+
+### Actualizar un estudiante de un curso por la cédula
+PUT {{apiUrl}}/students
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "cedula": 111111111,
+    "name": "Marian",
+    "lastname": "Sibar",
+    "bornDate": "2003-06-03",
+    "gender": "Masculino",
+    "phone": "8483-8466",
+    "email": "ellian.campos12@gmail.com",
+    "disability": "NO",
+    "disabilityDescription": "",
+    "provincia": "",
+    "canton": "",
+    "distrito": "",
+    "comunidad": "",
+    "observations": "La princesa"
+}
+
+### Eliminar un estudiante de un curso por la cédula
+DELETE {{apiUrl}}/students/118760048?courseCode=wun6
+Cookie: {{token}}

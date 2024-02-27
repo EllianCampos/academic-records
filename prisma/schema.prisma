@@ -8,38 +8,39 @@ datasource db {
 }
 
 model attendance {
-  id              Int               @id @default(autoincrement())
-  courseCode      String            @db.VarChar(4)
-  percentaje      Decimal           @db.Decimal(5, 2)
-  createdAt       DateTime?         @default(now()) @db.DateTime(0)
-  createdBy       String?           @db.VarChar(100)
-  updatedAt       DateTime?         @db.DateTime(0)
-  updatedBy       String?           @db.VarChar(100)
-  courses         courses           @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseCode_attendance")
-  attendancelines attendancelines[]
+  id                Int                 @id @default(autoincrement())
+  courseCode        String              @db.VarChar(4)
+  percentaje        Decimal             @db.Decimal(5, 2)
+  createdAt         DateTime?           @default(now()) @db.DateTime(0)
+  createdBy         String?             @db.VarChar(100)
+  updatedAt         DateTime?           @db.DateTime(0)
+  updatedBy         String?             @db.VarChar(100)
+  courses           courses             @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseCode_attendance")
+  attendanceheaders attendanceheaders[]
 
   @@index([courseCode], map: "fk_courseCode_attendance_idx")
 }
 
 model attendancelines {
-  id            Int        @id @default(autoincrement())
-  attendaceId   Int
-  studentCedula String     @db.VarChar(4)
-  description   String     @db.VarChar(50)
-  createdAt     DateTime?  @default(now()) @db.DateTime(0)
-  createdBy     String?    @db.VarChar(100)
-  updatedAt     DateTime?  @db.DateTime(0)
-  updatedBy     String?    @db.VarChar(100)
-  students      students   @relation(fields: [studentCedula], references: [cedula], onDelete: NoAction, onUpdate: NoAction, map: "dk_studentCedula_attendanceLiness")
-  attendance    attendance @relation(fields: [attendaceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_attendaceId_attendandeLines")
+  id                Int               @id @default(autoincrement())
+  attendaceHeaderId Int
+  studentId         Int
+  state             String            @db.VarChar(50)
+  observations      String            @db.VarChar(50)
+  createdAt         DateTime?         @default(now()) @db.DateTime(0)
+  createdBy         String?           @db.VarChar(100)
+  updatedAt         DateTime?         @db.DateTime(0)
+  updatedBy         String?           @db.VarChar(100)
+  students          students          @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "dk_studentId_attendanceLiness")
+  attendanceheaders attendanceheaders @relation(fields: [attendaceHeaderId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_attendaceHeaderId_attendandeLines")
 
-  @@index([studentCedula], map: "dk_studentCedula_attendanceLiness_idx")
-  @@index([attendaceId], map: "fk_attendaceId_attendandeLines_idx")
+  @@index([studentId], map: "dk_studentCedula_attendanceLiness_idx")
+  @@index([attendaceHeaderId], map: "fk_attendaceHeaderId_attendandeLines_idx")
 }
 
 model comments {
   id          Int       @id @default(autoincrement())
-  description String    @db.VarChar(100)
+  description String    @db.VarChar(1000)
   createdAt   DateTime? @default(now()) @db.DateTime(0)
 }
 
@@ -52,6 +53,7 @@ model courses {
   startDate              DateTime?     @db.Date
   endDate                DateTime?     @db.Date
   quota                  Int
+  isFinished             Boolean
   createdAt              DateTime?     @default(now()) @db.DateTime(0)
   createdBy              String?       @db.VarChar(100)
   updatedAt              DateTime?     @db.DateTime(0)
@@ -59,20 +61,22 @@ model courses {
   attendance             attendance[]
   enrollment             enrollment[]
   evaluations            evaluations[]
+  invitations            invitations[]
   usercourses            usercourses[]
 }
 
 model enrollment {
   id            Int       @id @default(autoincrement())
   courseCode    String    @db.VarChar(4)
-  studentCedula String    @db.VarChar(12)
+  studentId     Int
+  studentCedula Int
   createdAt     DateTime? @default(now()) @db.DateTime(0)
   createdBy     String?   @db.VarChar(100)
-  courses       courses   @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseCode_enrollment")
-  students      students  @relation(fields: [studentCedula], references: [cedula], onDelete: NoAction, onUpdate: NoAction, map: "fk_studentCedula_enrollment")
+  courses       courses   @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseCode_enrollment")
+  students      students  @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_studenId_enrollment")
 
   @@index([courseCode], map: "fk_courseCode_enrollment_idx")
-  @@index([studentCedula], map: "fk_studentCedula_enrollment_idx")
+  @@index([studentId], map: "fk_studentCedula_enrollment_idx")
 }
 
 model evaluations {
@@ -86,7 +90,7 @@ model evaluations {
   createdBy        String?         @db.VarChar(100)
   updatedAt        DateTime?       @db.DateTime(0)
   updatedBy        String?         @db.VarChar(100)
-  courses          courses         @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseCode_evaluations")
+  courses          courses         @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseCode_evaluations")
   grades           grades[]
   gradesheaders    gradesheaders[]
 
@@ -94,20 +98,20 @@ model evaluations {
 }
 
 model grades {
-  id            Int         @id @default(autoincrement())
-  studentCedula String      @db.VarChar(12)
-  evaluationId  Int
-  points        Int
-  feedback      String?     @db.VarChar(500)
-  createdAt     DateTime?   @default(now()) @db.DateTime(0)
-  createdBy     String?     @db.VarChar(100)
-  updatedAt     DateTime?   @db.DateTime(0)
-  updatedBy     String?     @db.VarChar(100)
-  evaluations   evaluations @relation(fields: [evaluationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_evaluationId_grades")
-  students      students    @relation(fields: [studentCedula], references: [cedula], onDelete: NoAction, onUpdate: NoAction, map: "fk_studentCedula_grades")
+  id           Int         @id @default(autoincrement())
+  studentId    Int
+  evaluationId Int
+  points       Int
+  feedback     String?     @db.VarChar(500)
+  createdAt    DateTime?   @default(now()) @db.DateTime(0)
+  createdBy    String?     @db.VarChar(100)
+  updatedAt    DateTime?   @db.DateTime(0)
+  updatedBy    String?     @db.VarChar(100)
+  evaluations  evaluations @relation(fields: [evaluationId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_evaluationId_grades")
+  students     students    @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_studentId_grades")
 
   @@index([evaluationId], map: "fk_evaluationId_grades_idx")
-  @@index([studentCedula], map: "fk_studentCedula_grades_idx")
+  @@index([studentId], map: "fk_studentCedula_grades_idx")
 }
 
 model gradesheaders {
@@ -119,7 +123,7 @@ model gradesheaders {
   createdBy    String?       @db.VarChar(100)
   updatedAt    DateTime?     @db.DateTime(0)
   updatedBy    String?       @db.VarChar(100)
-  evaluations  evaluations   @relation(fields: [evaluationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_evaluationId_gradesheaders")
+  evaluations  evaluations   @relation(fields: [evaluationId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_evaluationId_gradesheaders")
   gradeslines  gradeslines[]
 
   @@index([evaluationId], map: "fk_evaluationId_gradesheaders_idx")
@@ -128,22 +132,41 @@ model gradesheaders {
 model gradeslines {
   id            Int           @id
   gradeHeaderId Int
-  studentCedula String        @db.VarChar(12)
+  studentId     Int
   points        Int
   feedback      String?       @db.VarChar(500)
   createdAt     DateTime?     @default(now()) @db.DateTime(0)
   createdBy     String?       @db.VarChar(100)
   updatedAt     DateTime?     @db.DateTime(0)
   updatedBy     String?       @db.VarChar(100)
-  gradesheaders gradesheaders @relation(fields: [gradeHeaderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_gradeHeaderId_gradeslines")
-  students      students      @relation(fields: [studentCedula], references: [cedula], onDelete: NoAction, onUpdate: NoAction, map: "fk_studentCedula_gradeslines")
+  gradesheaders gradesheaders @relation(fields: [gradeHeaderId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_gradeHeaderId_gradeslines")
+  students      students      @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_studentId_gradeslines")
 
   @@index([gradeHeaderId], map: "fk_gradeHeaderId_gradeslines_idx")
-  @@index([studentCedula], map: "fk_studentCedula_gradeslines_idx")
+  @@index([studentId], map: "fk_studentCedula_gradeslines_idx")
+}
+
+model invitations {
+  id                                  Int       @id @default(autoincrement())
+  senderId                            Int
+  receptorId                          Int
+  courseCode                          String    @db.VarChar(4)
+  state                               String    @db.VarChar(50)
+  senderName                          String    @db.VarChar(100)
+  courseName                          String    @db.VarChar(100)
+  createAt                            DateTime? @default(now()) @db.DateTime(0)
+  courses                             courses   @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseCode_invitations")
+  users_invitations_receptorIdTousers users     @relation("invitations_receptorIdTousers", fields: [receptorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_receptorId_invitations")
+  users_invitations_senderIdTousers   users     @relation("invitations_senderIdTousers", fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_senderId_invitations")
+
+  @@index([courseCode], map: "fk_courseCode_invitations_idx")
+  @@index([receptorId], map: "fk_receptorId_invitations_idx")
+  @@index([senderId], map: "fk_senderId_invitations_idx")
 }
 
 model students {
-  cedula                String            @id @unique(map: "cedula_UNIQUE") @db.VarChar(12)
+  id                    Int               @id @default(autoincrement())
+  cedula                Int
   name                  String            @db.VarChar(50)
   lastname              String            @db.VarChar(50)
   bornDate              DateTime          @db.Date
@@ -171,7 +194,8 @@ model usercourses {
   id         Int     @id @default(autoincrement())
   userId     Int
   courseCode String  @db.VarChar(4)
-  courses    courses @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseCode_usercourses")
+  isCreator  Boolean
+  courses    courses @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseCode_usercourses")
   users      users   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_userId_usercourses")
 
   @@index([courseCode], map: "fk_courseCode_usercourses_idx")
@@ -179,12 +203,29 @@ model usercourses {
 }
 
 model users {
-  id          Int           @id @default(autoincrement())
-  name        String        @db.VarChar(50)
-  lastname    String        @db.VarChar(50)
-  email       String        @db.VarChar(75)
-  password    String        @db.VarChar(60)
-  createdAt   DateTime?     @default(now()) @db.DateTime(0)
-  updatedAt   DateTime?     @db.DateTime(0)
-  usercourses usercourses[]
+  id                                        Int           @id @default(autoincrement())
+  name                                      String        @db.VarChar(50)
+  lastname                                  String        @db.VarChar(50)
+  email                                     String        @db.VarChar(75)
+  password                                  String        @db.VarChar(60)
+  createdAt                                 DateTime?     @default(now()) @db.DateTime(0)
+  updatedAt                                 DateTime?     @db.DateTime(0)
+  invitations_invitations_receptorIdTousers invitations[] @relation("invitations_receptorIdTousers")
+  invitations_invitations_senderIdTousers   invitations[] @relation("invitations_senderIdTousers")
+  usercourses                               usercourses[]
+}
+
+model attendanceheaders {
+  id              Int               @id @default(autoincrement())
+  attendaceId     Int
+  description     String            @db.VarChar(50)
+  date            DateTime          @db.Date
+  createdAt       DateTime?         @default(now()) @db.DateTime(0)
+  createdBy       String?           @db.VarChar(100)
+  updatedAt       DateTime?         @db.DateTime(0)
+  updatedBy       String?           @db.VarChar(100)
+  attendance      attendance        @relation(fields: [attendaceId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_attendaceId_attendanceheaders")
+  attendancelines attendancelines[]
+
+  @@index([attendaceId], map: "fk_attendaceId_attendanceheaders_idx")
 }
