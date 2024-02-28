@@ -21,7 +21,7 @@ export const studentSchema = z.object({
         }),
     name: z
         .string({
-            required_error: 'Incluye un campo <<< name >>> en la petición'
+            required_error: 'Incluye <<< name >>> en la petición'
         })
         .max(50, {
             message: 'El nombre no puede tener más de 50 caracteres de longitud'

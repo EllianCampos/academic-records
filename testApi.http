@@ -151,3 +151,20 @@ Cookie: {{token}}
 ### Eliminar un estudiante de un curso por la cédula
 DELETE {{apiUrl}}/students/118760048?courseCode=wun6
 Cookie: {{token}}
+
+
+
+
+
+############################### Evaluaciones
+POST {{apiUrl}}/evaluations
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "name": "Examen 1",
+    "percentaje": 99.99,
+    "points": 5,
+    "isAutoCalculated": false
+}
