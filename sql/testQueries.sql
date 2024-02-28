@@ -13,3 +13,5 @@ SELECT * FROM comments;
 SELECT * FROM invitations;
 SELECT * FROM students;
 SELECT * FROM enrollment;
+SELECT * FROM evaluations;
+SELECT * FROM grades;

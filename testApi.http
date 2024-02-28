@@ -157,14 +157,71 @@ Cookie: {{token}}
 
 
 ############################### Evaluaciones
+### Crear evaluacion
 POST {{apiUrl}}/evaluations
 Content-Type: application/json
 Cookie: {{token}}
 
 {
     "courseCode": "3iww",
-    "name": "Examen 1",
-    "percentaje": 99.99,
+    "name": "Examen 2",
+    "percentaje": 15,
     "points": 5,
     "isAutoCalculated": false
 }
+
+### Obtener Evaluaciones
+GET {{apiUrl}}/evaluations?courseCode=3iww
+Cookie: {{token}}
+
+### Actualizar evaluacion
+PUT {{apiUrl}}/evaluations/4
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "name": "Examen 2",
+    "percentaje": 15,
+    "points": 75,
+    "isAutoCalculated": true 
+}
+
+### Eliminar evaluacion
+DELETE {{apiUrl}}/evaluations/3?courseCode=3iww
+Cookie: {{token}}
+
+############################### Calificaciones sencillas
+### Crear calificación
+POST  {{apiUrl}}/grades
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "studentId": 17,
+    "evaluationId": 4,
+    "points": 70,
+    "feedback": "Muy bien"
+}
+
+### Obtener las calificaciones de una evaluacion
+GET {{apiUrl}}/grades?courseCode=3iww&evaluationId=4
+Cookie: {{token}}
+
+### Actualizar calificación
+PUT {{apiUrl}}/grades/11
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "studentId": 16,
+    "evaluationId": 1,
+    "points": 35,
+    "feedback": "Poner mas atención en clase"
+}
+
+### Eliminar calificacion
+DELETE {{apiUrl}}/grades/12?courseCode=3iww&evaluationId=4
+Cookie: {{token}}
