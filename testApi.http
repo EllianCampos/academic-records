@@ -1,10 +1,10 @@
 @apiUrl = http://localhost:3000/api 
 
 ### Usuario Publico de prueba /// test@user.com /// test
-# @token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..tf3hwCEOY253JJve.oHMp5XdXsz_tjOYjKQ3HCwoXbQLSVhbz4YIBF4kLxNcG4PEyWRePM6IncjBTStIeLNBFv6hluNi0nM9daDV9Jw3Ii0_H8jifM7MONrmGvxwqj4v1qT40xA6j-WVNFBsCj2SJ9eftTwTjgnAJvelcRz96EdX6Vb7Av3IfKzEvbzZjg8b5sO5RweLazmAmVZp30K89jXTmEcH0B8YwBEg6NdBbFjgX5F2QpOwAVcEKlhhDeW07Xd-VuOqSEiBS3jN6urweV6LK9SM0SXcsWXJzK_gDxz46osDzGGOY.JwYzAryKGleG7eiry2GdcA
+@token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..tf3hwCEOY253JJve.oHMp5XdXsz_tjOYjKQ3HCwoXbQLSVhbz4YIBF4kLxNcG4PEyWRePM6IncjBTStIeLNBFv6hluNi0nM9daDV9Jw3Ii0_H8jifM7MONrmGvxwqj4v1qT40xA6j-WVNFBsCj2SJ9eftTwTjgnAJvelcRz96EdX6Vb7Av3IfKzEvbzZjg8b5sO5RweLazmAmVZp30K89jXTmEcH0B8YwBEg6NdBbFjgX5F2QpOwAVcEKlhhDeW07Xd-VuOqSEiBS3jN6urweV6LK9SM0SXcsWXJzK_gDxz46osDzGGOY.JwYzAryKGleG7eiry2GdcA
 
 ### Usuario Secundario de prueba /// secundario@test.com /// test
-@token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rQInbLFO55jA5irt.Bfdqc06VkOmIaWMJ_8ftgBZ5bQrngwSZJFk4d-pASqmLcozohEDCCNYhTxhQGqzYRXP-_7UzuDkCi9PqES9kNTUFd3jh08cQ4JQdxEvnUl5qhDOHXg03e8AaXV5BcIdiN0O2TBRoL15Pp9wRCpKkP9rUOE3C8Qnq_dPckjIWYuc3ylqVVPUUrDDl3JRh-tJ13bpoMgCvzN9XbW4d180cdMfAJeOyS-MJHRohL5nNEv7YvtTTwZAPk5O0WarBtRS_EgIE9WbsH0vSSxv2u5iRtigOOBxwKVLn5dXeurU7sQWQstSgl2FgVkQb.ZEWhH7WfDLMWHTDeZT-GLg
+# @token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rQInbLFO55jA5irt.Bfdqc06VkOmIaWMJ_8ftgBZ5bQrngwSZJFk4d-pASqmLcozohEDCCNYhTxhQGqzYRXP-_7UzuDkCi9PqES9kNTUFd3jh08cQ4JQdxEvnUl5qhDOHXg03e8AaXV5BcIdiN0O2TBRoL15Pp9wRCpKkP9rUOE3C8Qnq_dPckjIWYuc3ylqVVPUUrDDl3JRh-tJ13bpoMgCvzN9XbW4d180cdMfAJeOyS-MJHRohL5nNEv7YvtTTwZAPk5O0WarBtRS_EgIE9WbsH0vSSxv2u5iRtigOOBxwKVLn5dXeurU7sQWQstSgl2FgVkQb.ZEWhH7WfDLMWHTDeZT-GLg
 
 
 
@@ -66,7 +66,7 @@ Cookie: {{token}}
 
 ############################### Compartir cursos
 ### enviar invitacion
-POST {{apiUrl}}/courses/share?coursecode=3iww&emailreceptor=secundario@test.com
+POST {{apiUrl}}/courses/share?coursecode=bbbb&emailreceptor=secundario@test.com
 Cookie: {{token}}
 
 ### consultar mis invitaciones
@@ -180,11 +180,11 @@ Content-Type: application/json
 Cookie: {{token}}
 
 {
-    "courseCode": "3iww",
+     "courseCode": "3iww",
     "name": "Examen 2",
     "percentaje": 15,
     "points": 75,
-    "isAutoCalculated": true 
+    "isAutoCalculated": false
 }
 
 ### Eliminar evaluacion
@@ -225,3 +225,18 @@ Cookie: {{token}}
 ### Eliminar calificacion
 DELETE {{apiUrl}}/grades/12?courseCode=3iww&evaluationId=4
 Cookie: {{token}}
+
+
+############################### Encabezados de calificaciones
+############################### autoincrementales
+
+### Crear
+POST {{apiUrl}}/grades-headers
+Cookie: {{token}}
+
+{
+    "courseCode": "3iww",
+    "evaluationId": 5,
+    "name": "Tarea 1",
+    "points": 5
+}

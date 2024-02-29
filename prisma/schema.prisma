@@ -115,7 +115,7 @@ model grades {
 }
 
 model gradesheaders {
-  id           Int           @id
+  id           Int           @id @default(autoincrement())
   evaluationId Int
   name         String        @db.VarChar(100)
   points       Int
@@ -130,7 +130,7 @@ model gradesheaders {
 }
 
 model gradeslines {
-  id            Int           @id
+  id            Int           @id @default(autoincrement())
   gradeHeaderId Int
   studentId     Int
   points        Int
@@ -195,7 +195,7 @@ model usercourses {
   userId     Int
   courseCode String  @db.VarChar(4)
   isCreator  Boolean
-  courses    courses @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseCode_usercourses")
+  courses    courses @relation(fields: [courseCode], references: [code], onUpdate: NoAction, map: "fk_courseCode_usercourses")
   users      users   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_userId_usercourses")
 
   @@index([courseCode], map: "fk_courseCode_usercourses_idx")
