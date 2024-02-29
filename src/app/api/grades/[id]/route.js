@@ -84,7 +84,8 @@ export async function PUT(req, { params }) {
 				evaluationId: newGrade.data.evaluationId,
 				points: newGrade.data.points,
 				feedback: newGrade.data.feedback,
-				createdBy: `${user.name} ${user.lastname}`
+				updatedBy: `${user.name} ${user.lastname}`,
+				updatedAt: new Date()
 			}
 		})
 
