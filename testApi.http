@@ -1,10 +1,10 @@
 @apiUrl = http://localhost:3000/api 
 
 ### Usuario Publico de prueba /// test@user.com /// test
-@token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..tf3hwCEOY253JJve.oHMp5XdXsz_tjOYjKQ3HCwoXbQLSVhbz4YIBF4kLxNcG4PEyWRePM6IncjBTStIeLNBFv6hluNi0nM9daDV9Jw3Ii0_H8jifM7MONrmGvxwqj4v1qT40xA6j-WVNFBsCj2SJ9eftTwTjgnAJvelcRz96EdX6Vb7Av3IfKzEvbzZjg8b5sO5RweLazmAmVZp30K89jXTmEcH0B8YwBEg6NdBbFjgX5F2QpOwAVcEKlhhDeW07Xd-VuOqSEiBS3jN6urweV6LK9SM0SXcsWXJzK_gDxz46osDzGGOY.JwYzAryKGleG7eiry2GdcA
+# @token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..tf3hwCEOY253JJve.oHMp5XdXsz_tjOYjKQ3HCwoXbQLSVhbz4YIBF4kLxNcG4PEyWRePM6IncjBTStIeLNBFv6hluNi0nM9daDV9Jw3Ii0_H8jifM7MONrmGvxwqj4v1qT40xA6j-WVNFBsCj2SJ9eftTwTjgnAJvelcRz96EdX6Vb7Av3IfKzEvbzZjg8b5sO5RweLazmAmVZp30K89jXTmEcH0B8YwBEg6NdBbFjgX5F2QpOwAVcEKlhhDeW07Xd-VuOqSEiBS3jN6urweV6LK9SM0SXcsWXJzK_gDxz46osDzGGOY.JwYzAryKGleG7eiry2GdcA
 
 ### Usuario Secundario de prueba /// secundario@test.com /// test
-# @token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rQInbLFO55jA5irt.Bfdqc06VkOmIaWMJ_8ftgBZ5bQrngwSZJFk4d-pASqmLcozohEDCCNYhTxhQGqzYRXP-_7UzuDkCi9PqES9kNTUFd3jh08cQ4JQdxEvnUl5qhDOHXg03e8AaXV5BcIdiN0O2TBRoL15Pp9wRCpKkP9rUOE3C8Qnq_dPckjIWYuc3ylqVVPUUrDDl3JRh-tJ13bpoMgCvzN9XbW4d180cdMfAJeOyS-MJHRohL5nNEv7YvtTTwZAPk5O0WarBtRS_EgIE9WbsH0vSSxv2u5iRtigOOBxwKVLn5dXeurU7sQWQstSgl2FgVkQb.ZEWhH7WfDLMWHTDeZT-GLg
+@token = next-auth.csrf-token=8317f1af243c152014c4cff0936bc737c653c5eaffea1d9b75dbf2c0260ada66%7C159356281bd7a176a0acce6c371230f2af62641896d849540dfed860916d7773; next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000%2Fsignup; next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rQInbLFO55jA5irt.Bfdqc06VkOmIaWMJ_8ftgBZ5bQrngwSZJFk4d-pASqmLcozohEDCCNYhTxhQGqzYRXP-_7UzuDkCi9PqES9kNTUFd3jh08cQ4JQdxEvnUl5qhDOHXg03e8AaXV5BcIdiN0O2TBRoL15Pp9wRCpKkP9rUOE3C8Qnq_dPckjIWYuc3ylqVVPUUrDDl3JRh-tJ13bpoMgCvzN9XbW4d180cdMfAJeOyS-MJHRohL5nNEv7YvtTTwZAPk5O0WarBtRS_EgIE9WbsH0vSSxv2u5iRtigOOBxwKVLn5dXeurU7sQWQstSgl2FgVkQb.ZEWhH7WfDLMWHTDeZT-GLg
 
 
 
@@ -79,7 +79,7 @@ Cookie: {{token}}
 Content-Type: application/json
 
 {
-    "courseCode": "3iww"
+    "courseCode": "bbbb"
 }
 
 ### rechazar una invitación
@@ -118,7 +118,7 @@ Cookie: {{token}}
 }
 
 ### Obtener los estudiantes de un curso
-GET {{apiUrl}}/students?courseCode=3iww
+GET {{apiUrl}}/students?courseCode=bbbb
 Cookie: {{token}}
 
 ### Obtener un estudiante de un curso por la cedula
@@ -171,7 +171,7 @@ Cookie: {{token}}
 }
 
 ### Obtener Evaluaciones
-GET {{apiUrl}}/evaluations?courseCode=3iww
+GET {{apiUrl}}/evaluations?courseCode=bbbb
 Cookie: {{token}}
 
 ### Actualizar evaluacion
@@ -198,28 +198,28 @@ Content-Type: application/json
 Cookie: {{token}}
 
 {
-    "courseCode": "3iww",
-    "studentId": 17,
-    "evaluationId": 4,
+    "courseCode": "bbbb",
+    "studentId": 1,
+    "evaluationId": 1,
     "points": 70,
     "feedback": "Muy bien"
 }
 
 ### Obtener las calificaciones de una evaluacion
-GET {{apiUrl}}/grades?courseCode=3iww&evaluationId=4
+GET {{apiUrl}}/grades?courseCode=bbbb&evaluationId=1
 Cookie: {{token}}
 
 ### Actualizar calificación
-PUT {{apiUrl}}/grades/11
+PUT {{apiUrl}}/grades/1
 Content-Type: application/json
 Cookie: {{token}}
 
 {
-    "courseCode": "3iww",
-    "studentId": 16,
+    "courseCode": "bbbb",
+    "studentId": 1,
     "evaluationId": 1,
-    "points": 35,
-    "feedback": "Poner mas atención en clase"
+    "points": 0,
+    "feedback": "Muy bien"
 }
 
 ### Eliminar calificacion
@@ -232,11 +232,68 @@ Cookie: {{token}}
 
 ### Crear
 POST {{apiUrl}}/grades-headers
+Content-Type: application/json
 Cookie: {{token}}
 
 {
-    "courseCode": "3iww",
-    "evaluationId": 5,
-    "name": "Tarea 1",
-    "points": 5
+    "courseCode": "bbbb",
+    "evaluationId": 3,
+    "name": "Tarea 2",
+    "points": 25
 }
+
+### Obtener los encabezados de una evaluacion
+GET {{apiUrl}}/grades-headers?courseCode=bbbb&evaluationId=3
+Cookie: {{token}}
+
+### Actualizar un encabezado por id
+PUT {{apiUrl}}/grades-headers/2
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "bbbb",
+    "evaluationId": 3,
+    "name": "Tarea 2",
+    "points": 25
+}
+
+### Eliminar encabezado
+DELETE {{apiUrl}}/grades-headers/2?courseCode=bbbb&evaluationId=3
+Cookie: {{token}}
+
+############################### Calificaciones de evaluacion auto calculadas
+
+### Crear 
+POST  {{apiUrl}}/grades-lines
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "bbbb",
+    "studentId": 2,
+    "gradeHeaderId": 1,
+    "points": 4,
+    "feedback": ""
+}
+
+### Obtener por courseCode y gradeHeaderId
+GET {{apiUrl}}/grades-lines?courseCode=bbbb&gradeHeaderId=1
+Cookie: {{token}}
+
+### Actualizar
+PUT {{apiUrl}}/grades-lines/2
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "bbbb",
+    "studentId": 2,
+    "gradeHeaderId": 1, 
+    "points": 0,
+    "feedback": ""
+}
+
+#### Eliminar
+DELETE  {{apiUrl}}/grades-lines/3?courseCode=bbbb&gradeHeaderId=1
+Cookie: {{token}}
