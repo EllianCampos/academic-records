@@ -39,5 +39,19 @@ export const courseSchema = z.object({
         .boolean({
             required_error: 'Indica si el curso ya finalizó con true o false',
             invalid_type_error: 'Indica si el curso ya finalizó con true o false'
+        }),
+    attendacePercentaje: z
+        .number({
+            required_error: 'Incluye <<< attendacePercentaje >>> en la petición',
+            invalid_type_error: 'El porcentaje de asistencia debe ser un numero entero o con hasta 2 decimales'
         })
+        .nonnegative({
+            message: 'El porcentaje de asistencia debe estar entre 1 y 100x'
+        })
+        .max(100, {
+            message: 'El porcentaje de asistencia no puede ser mas de un 100%'
+        })
+        .multipleOf(0.01, {
+            message: 'El porcentaje de asistencia debe ser un numero entero o con hasta 2 decimales'
+        }),
 })

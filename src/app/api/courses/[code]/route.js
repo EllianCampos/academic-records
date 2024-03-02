@@ -97,6 +97,7 @@ export async function PUT(req, { params }) {
 				endDate: new Date(newCourse.data.endDate),
 				quota: newCourse.data.quota,
 				isFinished: newCourse.data.isFinished,
+				attendacePercentaje: newCourse.data.attendacePercentaje,
 				updatedBy: `${user.name} ${user.lastname}`,
 				updatedAt: new Date()
 			}
