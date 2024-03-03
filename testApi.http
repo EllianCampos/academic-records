@@ -182,7 +182,7 @@ Content-Type: application/json
 Cookie: {{token}}
 
 {
-     "courseCode": "3iww",
+    "courseCode": "3iww",
     "name": "Examen 2",
     "percentaje": 15,
     "points": 75,
@@ -298,4 +298,38 @@ Cookie: {{token}}
 
 #### Eliminar
 DELETE  {{apiUrl}}/grades-lines/3?courseCode=bbbb&gradeHeaderId=1
+Cookie: {{token}}
+
+
+
+
+############################### Encabezado de asistencia
+### Crear
+POST {{apiUrl}}/attendance
+Content-Type: application/json
+Cookie: {{token}}
+
+{
+    "courseCode": "bbbb",
+    "description": "Clase 3 - Tarde",
+    "date": "2024-03-03"
+}
+
+### Obtener todas las asistencias de un curso
+GET {{apiUrl}}/attendance?courseCode=bbbb
+Cookie: {{token}}
+
+### Actualizar 
+PUT {{apiUrl}}/attendance/1
+Cookie: {{token}}
+Content-Type: application/json
+
+{
+    "courseCode": "bbbb",
+    "description": "Clase 1",
+    "date": "2024-03-02"
+}
+
+### Eliminar
+DELETE {{apiUrl}}/attendance/5?courseCode=bbbb
 Cookie: {{token}}
