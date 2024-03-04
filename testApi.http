@@ -333,3 +333,48 @@ Content-Type: application/json
 ### Eliminar
 DELETE {{apiUrl}}/attendance/5?courseCode=bbbb
 Cookie: {{token}}
+
+
+
+
+
+
+
+### Lineas de asistencia 
+
+### crear
+POST {{apiUrl}}/attendance-lines
+Cookie: {{token}}
+Content-Type: application/json
+
+{
+    "courseCode": "bbbb",
+    "attendanceId": 1,
+    "studentId": 3,
+    "state": "AUSENTE",
+    "observations": ""
+}
+
+
+### obtener
+GET {{apiUrl}}/attendance-lines?courseCode=bbbb&attendanceId=1
+Cookie: {{token}}
+
+### actualizar
+PUT {{apiUrl}}/attendance-lines/8
+Cookie: {{token}}
+Content-Type: application/json
+
+{
+    "courseCode": "bbbb",
+    "attendanceId": 1,
+    "studentId": 2,
+    "state": "AUSENTE JUSTIFICADO",
+    "observations": ""
+}
+
+
+
+### eliminar
+DELETE {{apiUrl}}/attendance-lines/3?courseCode=bbbb&attendanceId=1
+Cookie: {{token}}

@@ -23,20 +23,20 @@ model attendance {
 }
 
 model attendancelines {
-  id                Int        @id @default(autoincrement())
-  attendaceHeaderId Int
-  studentId         Int
-  state             String     @db.VarChar(50)
-  observations      String     @db.VarChar(50)
-  createdAt         DateTime?  @default(now()) @db.DateTime(0)
-  createdBy         String?    @db.VarChar(100)
-  updatedAt         DateTime?  @db.DateTime(0)
-  updatedBy         String?    @db.VarChar(100)
-  students          students   @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "dk_studentId_attendanceLiness")
-  attendance        attendance @relation(fields: [attendaceHeaderId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_attendaceHeaderId_attendandeLines")
+  id           Int        @id @default(autoincrement())
+  attendaceId  Int
+  studentId    Int
+  state        String     @db.VarChar(50)
+  observations String     @db.VarChar(50)
+  createdAt    DateTime?  @default(now()) @db.DateTime(0)
+  createdBy    String?    @db.VarChar(100)
+  updatedAt    DateTime?  @db.DateTime(0)
+  updatedBy    String?    @db.VarChar(100)
+  students     students   @relation(fields: [studentId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "dk_studentId_attendanceLiness")
+  attendance   attendance @relation(fields: [attendaceId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_attendaceId_attendandeLines")
 
   @@index([studentId], map: "dk_studentCedula_attendanceLiness_idx")
-  @@index([attendaceHeaderId], map: "fk_attendaceHeaderId_attendandeLines_idx")
+  @@index([attendaceId], map: "fk_attendaceHeaderId_attendandeLines_idx")
 }
 
 model comments {
