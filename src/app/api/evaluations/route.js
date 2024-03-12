@@ -67,6 +67,7 @@ export async function POST(req) {
 			return NextResponse.json(newEvaluation.error)
 		}
 	} catch (error) {
+		console.log(error)
 		return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
 	}
 

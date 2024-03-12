@@ -35,15 +35,37 @@ export async function GET(req) {
 			return NextResponse.json({ errorMessage: 'El curso no existe' })
 		}
 
-		const gradeslines = await prisma.gradeslines.findMany({
+		// const gradeslines = await prisma.gradeslines.findMany({
+		// 	where: {
+		// 		gradeHeaderId: Number(gradeHeaderId)
+		// 	}
+		// })
+
+		const gradeslines = await prisma.students.findMany({
 			where: {
-				gradeHeaderId: Number(gradeHeaderId)
+				enrollment: {
+					every: {
+						courseCode: courseCode
+					}
+				}
+			},
+			include: {
+				gradeslines: {
+					where: {
+						gradeHeaderId: Number(gradeHeaderId)
+					}
+				}
 			}
 		})
 
-		return NextResponse.json(gradeslines)
+		const transformedData = gradeslines.map(student => ({
+			...student,
+			grades: student.gradeslines
+		}));
 
-	} catch (error) {
+		return NextResponse.json(transformedData)
+
+	} catch (error) { console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

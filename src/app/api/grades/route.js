@@ -35,9 +35,26 @@ export async function GET(req) {
 			return NextResponse.json({ errorMessage: 'El curso no existe' })
 		}
 
-		const grades = await prisma.grades.findMany({
+		// const grades = await prisma.grades.findMany({
+		// 	where: {
+		// 		evaluationId: Number(evaluationId)
+		// 	}
+		// })
+
+		const grades = await prisma.students.findMany({
 			where: {
-				evaluationId: Number(evaluationId)
+				enrollment: {
+					every: {
+						courseCode: courseCode
+					}
+				}
+			},
+			include: {
+				grades: {
+					where: {
+						evaluationId: Number(evaluationId)
+					}
+				}
 			}
 		})
 

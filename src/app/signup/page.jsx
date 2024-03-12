@@ -111,9 +111,8 @@ export default function SignUpPage() {
             />
           </div>
         </div>
-        <button type="submit" className='btn btn-success px-5'>Enviar datos</button>
-        <hr className="mt-4" />
-        <Link href="/signin" className="btn btn-primary form-control">Ya tengo una cuenta</Link>
+        <button type="submit" className='btn btn-success px-5 me-2'>Enviar datos</button>
+        <Link href="/signin" className="btn btn-primary px-3 ms-2">Ya tengo una cuenta</Link>
       </form>
     </main>
   )

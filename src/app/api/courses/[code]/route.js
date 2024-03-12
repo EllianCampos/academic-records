@@ -34,6 +34,7 @@ export async function GET(req, { params }) {
 					endDate: true,
 					quota: true,
 					isFinished: true,
+					attendacePercentaje: true,
 					createdAt: true,
 					createdBy: true,
 					updatedAt: true,

@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <>
       <header className="mb-3">
-        <h1 className="text-center">Registro estudiantil - control de estudiantes y calificaciones</h1>
+        <h1 className="text-center py-3">Registro Estudiantil</h1>
       </header>
 
       <main>
@@ -39,15 +39,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="container p-4">
+        <section className="container p-5">
           <h2>Soy un estudiante</h2>
           <p>Si sos un estudiante podes consultar tus calificaciones y el estado de tus cursos</p>
           <Link href="/students" className="btn btn-success" >Ir al portal de estudiantes</Link>
         </section>
 
-        <section className="container-fluid bg-dark text-info p-5">
-          <div className="container border border-5 rounded-5 border-light p-5">
-            <p style={{ fontSize: '1.8rem' }}>
+        <section className="container-fluid bg-dark text-info py-5">
+          <div className="container border border-5 rounded-5 border-light p-3 p-md-5 text-small">
+            <p style={{ fontSize: '1.3rem' }}>
               Nuestro sistema está diseñado para facilitar la labor de los docentes. Con esta plataforma, los profesores pueden&nbsp;
               <span className="fw-bold text-light">
                 registrar a sus estudiantes, crear evaluaciones personalizadas, revisar el progreso de los alumnos y generar calificaciones de manera eficiente.
@@ -57,8 +57,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="my-5 pb-5 min-vh-100 ">
-          <SignInPage />
+        <section className="d-flex justify-content-center align-items-center  min-vh-100 ">
+          <SignInPage hideBackBotton={true} />
         </section>
       </main>
     </>

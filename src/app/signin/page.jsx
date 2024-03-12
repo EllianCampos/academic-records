@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { signIn } from 'next-auth/react'
 
-export default function SignInPage() {
+export default function SignInPage(props) {
 	const router = useRouter()
 	const [error, setError] = useState(null)
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+	const [hideBackBotton, setHideBackBotton] = useState(props.hideBackBotton ? props.hideBackBotton : false)
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -30,12 +32,14 @@ export default function SignInPage() {
 
 	return (
 		<main>
-			<Link href="/#more">
+			{!hideBackBotton && (
+				<Link href="/#more">
 				<i className="bi bi-arrow-left-circle-fill display-5 ms-1"></i>
 			</Link>
-			<h2 className="text-center mt-5">Iniciar sesión como profesor</h2>
-			<section className="container d-flex align-content-center justify-content-center">
-				<form onSubmit={handleSubmit} className="col-8  ">
+			)}
+			<h2 className="text-center">Iniciar sesión como profesor</h2>
+			<section className="d-flex justify-content-center ">
+				<form onSubmit={handleSubmit} className="col-8">
 					<div className="row mb-1">
 						{
 							error !== null && (
