@@ -19,7 +19,7 @@ export default function CoursesPage() {
 
 	return (
 		<main className="container">
-			<div className="d-flex justify-content-between">
+			<div className="d-flex justify-content-between py-2">
 				<h1 className="mt-3">Mis cursos</h1>
 				<div>
 					<Link
@@ -31,7 +31,7 @@ export default function CoursesPage() {
 					</Link>
 				</div>
 			</div>
-			<section className="d-flex justify-content-start align-items-start flex-wrap">
+			<section className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 				{courses.map(course => (
 					course.usercourses.length === 1 ? (
 						<Course key={course.code} course={course} color='#249bba' />
@@ -43,8 +43,3 @@ export default function CoursesPage() {
 		</main>
 	)
 }
-
-
-
-// Color verde #28aa42
-// #249bba

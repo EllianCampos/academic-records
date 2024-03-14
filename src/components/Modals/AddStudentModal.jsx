@@ -1,65 +1,25 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Required from "../Required"
 import { useRouter } from "next/navigation"
-export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode }) {
+import Swal from "sweetalert2"
 
+export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode }) {
 	const router = useRouter()
 
-	// const [cedula, setCedula] = useState(student ? student.cedula : '')
-	// const [name, setName] = useState(student ? student.name : '')
-	// const [lastname, setLastname] = useState(student ? student.lastname : '')
-	// const [bornDate, setBornDate] = useState(student ? student.bornDate : '')
-	// const [gender, setGender] = useState(student ? student.gender : '')
-	// const [phone, setPhone] = useState(student ? student.phone : '')
-	// const [email, setemail] = useState(student ? student.email : '')
-	// const [disability, setDisability] = useState(student ? student.disability : '')
-	// const [disabilityDescription, setDisabilityDescription] = useState(student ? student.disabilityDescription : "")
-	// const [provincia, setProvincia] = useState(student ? student.provincia : '')
-	// const [canton, setcanton] = useState(student ? student.canton : '')
-	// const [distrito, setDistrito] = useState(student ? student.distrito : '')
-	// const [comunidad, setComunidad] = useState(student ? student.comunidad : '')
-	// const [observations, setObservations] = useState(student ? student.observations : "")
-
-
-	const [cedula, setCedula] = useState('')
-	const [name, setName] = useState('')
-	const [lastname, setLastname] = useState('')
-	const [bornDate, setBornDate] = useState('')
-	const [gender, setGender] = useState('')
-	const [phone, setPhone] = useState('')
-	const [email, setemail] = useState('')
-	const [disability, setDisability] = useState('')
-	const [disabilityDescription, setDisabilityDescription] = useState('Descripcion')
-	const [provincia, setProvincia] = useState('')
-	const [canton, setcanton] = useState('')
-	const [distrito, setDistrito] = useState('')
-	const [comunidad, setComunidad] = useState('')
-	const [observations, setObservations] = useState('Obser')
-
-	const loadStudentData = () => {
-		setCedula(student.cedula)
-		setName(student.name)
-		setLastname(student.lastname)
-		setBornDate(student.bornDate)
-		setGender(student.gender)
-		setPhone(student.phone)
-		setemail(student.email)
-		setDisability(student.disability)
-		// setDisabilityDescription(student.disabilityDescription)
-		setDisabilityDescription('text...')
-		setProvincia(student.provincia)
-		setcanton(student.canton)
-		setDistrito(student.distrito)
-		setComunidad(student.comunidad)
-		// setObservations(student.observations)
-		setObservations('text...')
-	}
-
-	useEffect(() => {
-		if (method === 'PUT') {
-			loadStudentData()
-		}
-	}, [])
+	const [cedula, setCedula] = useState(student ? student.cedula : '')
+	const [name, setName] = useState(student ? student.name : '')
+	const [lastname, setLastname] = useState(student ? student.lastname : '')
+	const [bornDate, setBornDate] = useState(student ? student.bornDate.substring(0,10) : '')
+	const [gender, setGender] = useState(student ? student.gender : '')
+	const [phone, setPhone] = useState(student ? student.phone : '')
+	const [email, setemail] = useState(student ? student.email : '')
+	const [disability, setDisability] = useState(student ? student.disability : '')
+	const [disabilityDescription, setDisabilityDescription] = useState(student ? (student.disabilityDescription ? student.disabilityDescription : '') : '')
+	const [provincia, setProvincia] = useState(student ? (student.provincia ? student.provincia : '') : '')
+	const [canton, setcanton] = useState(student ? (student.canton ? student.canton : '') : '')
+	const [distrito, setDistrito] = useState(student ? (student.distrito ? student.distrito : '') : '')
+	const [comunidad, setComunidad] = useState(student ? (student.comunidad ? student.comunidad : '') : '')
+	const [observations, setObservations] = useState(student ? (student.observations ? student.observations : '') : '')
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -89,19 +49,26 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 		})
 			.then(res => res.json())
 			.then(res => {
-				console.log(res)
 				if (res.issues) {
-					alert(res.issues[0].message)
-				} else if (res.errorMessage) {
-					alert(res.errorMessage)
+          Swal.fire({
+            title: 'Información incompleta',
+            text: res.issues[0].message,
+            icon: 'warning',
+            confirmButtonText: 'Lo corregiré'
+          })
+        } else if (res.errorMessage) {
+          Swal.fire({
+            title: 'Error, algo salio mal',
+            text: res.errorMessage,
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
 				} else {
-					alert(method === 'POST' ? 'Estudiante matriculado exitosamente' : 'Los datos del estudiante han sido actualizados exitosamente')
+					Swal.fire(method === 'POST' ? 'Estudiante matriculado exitosamente' : 'Los datos del estudiante han sido actualizados exitosamente')
 					router.push(`/courses/${courseCode}`)
 				}
 			})
 	}
-
-	
 
 	return (
 		<>
@@ -120,7 +87,7 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 							<button type="button" className="btn-close" data-bs-dismiss="modal"></button>
 						</div>
 						<div className="modal-body">
-							<form onSubmit={handleSubmit}>
+							<form onSubmit={handleSubmit} noValidate>
 								<div className="form-floating mb-3">
 									<input
 										value={cedula}
@@ -171,7 +138,7 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 								</div>
 								<div className="form-floating mb-3">
 									<input
-										value={bornDate.substring(0,10)}
+										value={bornDate}
 										onChange={event => setBornDate(event.target.value)}
 										type="date"
 										className="form-control"
@@ -329,18 +296,13 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 									</label>
 								</div>
 								<div className="mb-3">
-									<label
-										htmlFor="observations"
-									>
-										Observaciones
-									</label>
+									<label>Observaciones</label>
 									<textarea
 										value={observations}
 										onChange={event => setObservations(event.target.value)}
 										type="text"
 										className="form-control"
-										id="observations"
-										rows={3}
+										rows={6}
 									/>
 								</div>
 								<div className="modal-footer">

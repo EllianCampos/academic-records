@@ -21,6 +21,6 @@ export const attendanceSchema = z.object({
     date: z
         .string({ required_error: "Incluye <<< date >>> en la petición" })
         .min(1, {
-            message: 'La fecha de inicio del curso es requerida'
+            message: 'La fecha es requerida'
         }),
 })

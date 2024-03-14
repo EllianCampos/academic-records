@@ -46,7 +46,7 @@ export async function GET(req) {
 				enrollment: {
 					every: {
 						courseCode: courseCode
-					}
+					}	
 				}
 			},
 			include: {
@@ -55,6 +55,9 @@ export async function GET(req) {
 						evaluationId: Number(evaluationId)
 					}
 				}
+			},
+			orderBy: {
+				lastname: 'asc'
 			}
 		})
 

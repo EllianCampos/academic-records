@@ -35,12 +35,6 @@ export async function GET(req) {
 			return NextResponse.json({ errorMessage: 'El curso no existe' })
 		}
 
-		// const gradeslines = await prisma.gradeslines.findMany({
-		// 	where: {
-		// 		gradeHeaderId: Number(gradeHeaderId)
-		// 	}
-		// })
-
 		const gradeslines = await prisma.students.findMany({
 			where: {
 				enrollment: {
@@ -55,6 +49,9 @@ export async function GET(req) {
 						gradeHeaderId: Number(gradeHeaderId)
 					}
 				}
+			},
+			orderBy: {
+				lastname: 'asc'
 			}
 		})
 

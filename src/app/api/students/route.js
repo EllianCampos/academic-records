@@ -34,17 +34,31 @@ export async function GET(req) {
             return NextResponse.json({ errorMessage: 'El curso no existe' })
         }
 
-        const students = await prisma.students.findMany({
+        // const students = await prisma.students.findMany({
+        //     where: {
+        //         enrollment: {
+        //             every: {
+        //                 courseCode: courseCode
+        //             }
+        //         }
+        //     }
+        // })
+
+        const students = await prisma.enrollment.findMany({
             where: {
-                enrollment: {
-                    every: {
-                        courseCode
-                    }
-                }
+               courseCode 
+            },
+            select: {
+                students: true
             }
         })
 
-        return NextResponse.json(students)
+        let result = []
+        for (const iterator of students) {
+            result.push(iterator.students)
+        }
+
+        return NextResponse.json(result)
 
     } catch (error) {
         console.log(error)
@@ -82,6 +96,9 @@ export async function POST(req) {
             where: {
                 courseCode: newStudent.data.courseCode,
                 userId: user.id
+            },
+            include: {
+                courses: true
             }
         })
         if (!courseFound) {
@@ -97,6 +114,11 @@ export async function POST(req) {
         })
         if (studentFound) {
             return NextResponse.json({ errorMessage: 'El estudiante ya ha sido registrado' })
+        }
+
+        // validate if there is space left in the course
+        if (courseFound.courses.numberStudentsEnrolled >= courseFound.courses.quota) {
+            return NextResponse.json({ errorMessage: 'El curso ha alcanzado la cantidad máxima de estudiantes matriuclados' })
         }
 
         // Create
@@ -130,8 +152,20 @@ export async function POST(req) {
             }
         })
 
+        // add count estudents enrrolleds
+        const count = await prisma.courses.update({
+            where: {
+                code: courseFound.courseCode
+            },
+            data: {
+                numberStudentsEnrolled: {
+                    increment: 1
+                }
+            }
+        })
+
         // Validate if was created
-        if (!student || !enrollment) {
+        if (!student || !enrollment || !count) {
             return NextResponse.json({ errorMessage: 'Error registrando el estudiante' }, { status: 500 })
         }
 

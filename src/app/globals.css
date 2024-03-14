@@ -4,3 +4,7 @@
 body {
     background-color: #333;
 }
+
+.font_resize{
+    font-size: clamp(12px, 4vw, 32px);
+}

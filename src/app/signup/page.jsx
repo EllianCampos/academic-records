@@ -4,6 +4,8 @@ import Link from "next/link"
 import { useState } from "react"
 import { signIn } from 'next-auth/react'
 import { useRouter } from "next/navigation"
+import Swal from "sweetalert2"
+import NavbarLanding from "@/components/NavbarLanding"
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -16,6 +18,7 @@ export default function SignUpPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    Swal.showLoading()
 
     fetch('/api/auth/signup', {
       method: 'POST',
@@ -27,6 +30,7 @@ export default function SignUpPage() {
       })
     })
       .then(response => {
+        Swal.close()
         if (response.status === 201) {
           setError(null)
           signIn('credentials', {
@@ -50,6 +54,10 @@ export default function SignUpPage() {
   }
 
   return (
+    <>
+    <header>
+      <NavbarLanding />
+    </header>
     <main className='text-center m-3'>
       <h1>Crea tu cuenta de profesor</h1>
       <form onSubmit={handleSubmit} className='m-5'>
@@ -111,9 +119,12 @@ export default function SignUpPage() {
             />
           </div>
         </div>
-        <button type="submit" className='btn btn-success px-5 me-2'>Enviar datos</button>
-        <Link href="/signin" className="btn btn-primary px-3 ms-2">Ya tengo una cuenta</Link>
+        <div>
+        <button type="submit" className='btn btn-success col-12 col-md-6 mt-2'>Enviar datos</button>
+        {/* <Link href="/signin" className='btn btn-primary col-12 col-md-6 mt-2'>Ya tengo una cuenta</Link> */}
+        </div>
       </form>
     </main>
+    </>
   )
 }

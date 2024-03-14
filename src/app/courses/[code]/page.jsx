@@ -14,8 +14,6 @@ export default function CoursePage({ params }) {
 	const [evaluations, setEvaluations] = useState([])
 	const [amICreator, setAmICreator] = useState(false)
 
-// console.log(course)
-
 	const fetchCourseData = () => {
 		fetch(`/api/courses/${params.code}`)
 			.then(res => res.json())
@@ -103,9 +101,9 @@ export default function CoursePage({ params }) {
 					</h2>
 					<div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 						<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
-							<Evaluations 
-								evaluations={evaluations} 
-								attendacePercentaje={Number(course.attendacePercentaje)} 
+							<Evaluations
+								evaluations={evaluations}
+								attendacePercentaje={Number(course.attendacePercentaje)}
 								courseCode={params.code}
 								setEvaluations={setEvaluations}
 							/>
@@ -122,8 +120,8 @@ export default function CoursePage({ params }) {
 					</h2>
 					<div id="collapseFive" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 						<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
-							<Grades 
-								evaluations={evaluations} 
+							<Grades
+								evaluations={evaluations}
 								courseCode={params.code}
 							/>
 						</div>
@@ -131,7 +129,7 @@ export default function CoursePage({ params }) {
 				</div>
 
 				{/* Attendance */}
-				{/* <div className="accordion-item">
+				<div className="accordion-item">
 					<h2 className="accordion-header">
 						<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 							Asistencia
@@ -139,10 +137,12 @@ export default function CoursePage({ params }) {
 					</h2>
 					<div id="collapseSix" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 						<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
-							<Attendance   />
+							<Attendance
+								courseCode={params.code}
+							/>
 						</div>
 					</div>
-				</div> */}
+				</div>
 
 			</div>
 		</main>

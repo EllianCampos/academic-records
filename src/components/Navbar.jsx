@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from 'next-auth/react'
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+	const pathname = usePathname()
 	const { data: session } = useSession()
 
 	const [fullname, setFullname] = useState('')
@@ -20,7 +22,10 @@ export default function Navbar() {
 	return (
 		<nav className="navbar navbar-expand-smx navbar-light bg-light">
 			<div className="container-fluid">
-				<Link href="/courses" className="navbar-brand">Registro Estudiantil</Link>
+				<Link href={pathname === '/courses' ? '../' : '/courses'} className="navbar-brand">
+					<i className="bi bi-house-door me-2"></i>
+					Registro Estudiantil
+				</Link>
 				{/* <button
 					className="navbar-toggler"
 					type="button"
@@ -52,7 +57,7 @@ export default function Navbar() {
 						</div>
 						<Link href="/account" className="btn">Mi perfil</Link>
 						<div className="dropdown-divider"></div>
-						<button className="btn" onClick={() => { signOut() }	} >
+						<button className="btn" onClick={() => { signOut() }} >
 							<i className="bi bi-box-arrow-left me-1"></i>
 							Cerrar sesión
 						</button>

@@ -42,52 +42,6 @@ export async function GET(req) {
 			}
 		})
 
-		// const grades = await prisma.students.findMany({
-		// 	where: {
-		// 		enrollment: {
-		// 			every: {
-		// 				courseCode: courseCode
-		// 			}
-		// 		}
-		// 	},
-		// 	include: {
-		// 		gradeslines: {
-		// 			include: {
-		// 				gradesheaders: {
-		// 					include: {
-		// 						evaluations: {
-		// 							include: {
-		// 								gradesheaders: {
-		// 									where: {
-		// 										evaluationId: evaluationId
-		// 									}
-		// 								}
-		// 							}
-		// 						}
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// })
-
-		// const grades = await prisma.students.findMany({
-		// 	where: {
-		// 		enrollment: {
-		// 			every: {
-		// 				courseCode: courseCode
-		// 			}
-		// 		}
-		// 	},
-		// 	include: {
-		// 		gradeslines: {
-		// 			where: {
-		// 				gradeHeaderId: 
-		// 			}
-		// 		}
-		// 	}
-		// })
-
 		return NextResponse.json(grades)
 
 	} catch (error) {

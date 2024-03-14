@@ -36,12 +36,11 @@ export default function Enrollment({ students, courseCode }) {
             </tr>
           </thead>
           <tbody>
-            {students.map(student => (
-
-              <tr key={student.cedula} className="position-relative ">
-                <td className="pb-5">
+            {students.map((student, index) => (
+              <tr key={index} className="position-relative ">
+                <td>
                   <AddStudentModal btnText='' icon='bi bi-pencil-square' color='primary' method='PUT' student={student} id={student.id} courseCode={courseCode} />
-                  <br />
+                  {/* <br />
                   <br />
                   <p className="position-absolute bottom-0 start-0 ms-3 mb-4">
                     {student.updatedBy === null ?
@@ -49,12 +48,15 @@ export default function Enrollment({ students, courseCode }) {
                       :
                       <><span className="fw-bold">Datos actualizados por: </span> {student.updatedBy} </>
                     }
-                  </p>
+                  </p> */}
                 </td>
                 <td>{student.cedula}</td>
                 <td>{student.lastname}</td>
                 <td>{student.name}</td>
-                <td>{student.bornDate}</td>
+                <td>
+                {/* {student.bornDate.substring(0,10)} */}
+                <input type="date" value={student.bornDate.substring(0,10)} readOnly />
+                </td>
                 <td>{student.gender}</td>
                 <td>{student.phone}</td>
                 <td>{student.email}</td>

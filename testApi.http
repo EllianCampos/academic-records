@@ -206,7 +206,7 @@ Cookie: {{token}}
 }
 
 ### Obtener las calificaciones de una evaluacion
-GET {{apiUrl}}/grades?courseCode=bbbb&evaluationId=1
+GET {{apiUrl}}/grades?courseCode=bbbb&evaluationId=40
 Cookie: {{token}}
 
 ### Actualizar calificación
