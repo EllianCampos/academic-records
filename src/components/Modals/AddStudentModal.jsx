@@ -1,15 +1,14 @@
+'use client'
 import { useState } from "react"
 import Required from "../Required"
 import { useRouter } from "next/navigation"
 import Swal from "sweetalert2"
 
-export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode }) {
-	const router = useRouter()
-
+export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode, fetchStudents }) {
 	const [cedula, setCedula] = useState(student ? student.cedula : '')
 	const [name, setName] = useState(student ? student.name : '')
 	const [lastname, setLastname] = useState(student ? student.lastname : '')
-	const [bornDate, setBornDate] = useState(student ? student.bornDate.substring(0,10) : '')
+	const [bornDate, setBornDate] = useState(student ? student.bornDate.substring(0, 10) : '')
 	const [gender, setGender] = useState(student ? student.gender : '')
 	const [phone, setPhone] = useState(student ? student.phone : '')
 	const [email, setemail] = useState(student ? student.email : '')
@@ -23,7 +22,7 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		console.log(courseCode)
+
 		fetch('/api/students', {
 			method: method,
 			headers: {
@@ -50,22 +49,37 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 			.then(res => res.json())
 			.then(res => {
 				if (res.issues) {
-          Swal.fire({
-            title: 'Información incompleta',
-            text: res.issues[0].message,
-            icon: 'warning',
-            confirmButtonText: 'Lo corregiré'
-          })
-        } else if (res.errorMessage) {
-          Swal.fire({
-            title: 'Error, algo salio mal',
-            text: res.errorMessage,
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
-          })
+					Swal.fire({
+						title: 'Información incompleta',
+						text: res.issues[0].message,
+						icon: 'warning',
+						confirmButtonText: 'Lo corregiré'
+					})
+				} else if (res.errorMessage) {
+					Swal.fire({
+						title: 'Error, algo salio mal',
+						text: res.errorMessage,
+						icon: 'error',
+						confirmButtonText: 'Aceptar'
+					})
 				} else {
+					document.getElementById(`btnCloseStudent${id}Modal`).click()
+					setCedula('')
+					setName('')
+					setLastname('')
+					setBornDate('')
+					setGender('')
+					setPhone('')
+					setemail('')
+					setDisability('')
+					setDisabilityDescription('')
+					setProvincia('')
+					setcanton('')
+					setDistrito('')
+					setComunidad('')
+					setObservations('')
+					fetchStudents()
 					Swal.fire(method === 'POST' ? 'Estudiante matriculado exitosamente' : 'Los datos del estudiante han sido actualizados exitosamente')
-					router.push(`/courses/${courseCode}`)
 				}
 			})
 	}
@@ -82,12 +96,12 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 					<div className="modal-content">
 						<div className="modal-header">
 							<h1 className="modal-title fs-5">
-								{method == 'POST' ? 'Matricular estudiante min' : 'Actualizar datos de un estudiante'}
+								{method == 'POST' ? 'Matricular estudiante' : 'Actualizar datos de un estudiante'}
 							</h1>
 							<button type="button" className="btn-close" data-bs-dismiss="modal"></button>
 						</div>
 						<div className="modal-body">
-							<form onSubmit={handleSubmit} noValidate>
+							<form onSubmit={handleSubmit} id={`FormStudent${id}Modal`}>
 								<div className="form-floating mb-3">
 									<input
 										value={cedula}
@@ -306,11 +320,11 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 									/>
 								</div>
 								<div className="modal-footer">
-									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal" id={`btnCloseStudent${id}Modal`}>
 										Descartar
 									</button>
 									<button type="submit" className="btn btn-primary">
-										{method === 'POST' ? "Matricular" : "Guradar cambios"}
+										{method === 'POST' ? "Matricular" : "Guardar cambios"}
 									</button>
 								</div>
 							</form>

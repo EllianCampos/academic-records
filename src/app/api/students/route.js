@@ -136,7 +136,7 @@ export async function POST(req) {
                 provincia: newStudent.data.provincia,
                 canton: newStudent.data.canton,
                 distrito: newStudent.data.distrito,
-                comunidad: newStudent.data.distrito,
+                comunidad: newStudent.data.comunidad,
                 observations: newStudent.data.observations,
                 createdBy: `${user.name} ${user.lastname}`
             }
@@ -152,7 +152,7 @@ export async function POST(req) {
             }
         })
 
-        // add count estudents enrrolleds
+        // add count students enrrolleds
         const count = await prisma.courses.update({
             where: {
                 code: courseFound.courseCode
@@ -239,7 +239,7 @@ export async function PUT(req) {
                 provincia: newStudent.data.provincia,
                 canton: newStudent.data.canton,
                 distrito: newStudent.data.distrito,
-                comunidad: newStudent.data.distrito,
+                comunidad: newStudent.data.comunidad,
                 observations: newStudent.data.observations,
 				updatedBy: `${user.name} ${user.lastname}`,
 				updatedAt: new Date()

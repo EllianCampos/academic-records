@@ -115,8 +115,20 @@ export async function DELETE(req, { params }) {
             }
         })
 
+        // decrement count students enrrolleds
+        const count = await prisma.courses.update({
+            where: {
+                code: courseFound.courseCode
+            },
+            data: {
+                numberStudentsEnrolled: {
+                    decrement: 1
+                }
+            }
+        })
+
         // Validate if was deleted
-        if (!deleted) {
+        if (!deleted || !count) {
             return NextResponse.json({ 
                 errorMessage: 'Error al eliminar el estudiante' }, 
                 { status: 400 }

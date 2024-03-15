@@ -71,7 +71,7 @@ export default function HomePage() {
       <footer className="container-fluid bg-dark text-light row p-5">
         <div className="col">
           <p>
-            Plataforma desarrolla y mantenida por:
+            Plataforma desarrollada y mantenida por:
             <span className="fw-bold"> Ellian Campos Ceciliano</span>
           </p>
         </div>

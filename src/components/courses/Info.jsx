@@ -24,9 +24,20 @@ export default function Info(props) {
           <p><span className="fw-bold">Cantidad de estudiantes matriculados: </span>{props.course.numberStudentsEnrolled}</p>
           <p><span className="fw-bold">Cupo máximo: </span>{props.course.quota}</p>
 
-          <p><span className="fw-bold">Fecha de inicio: </span>{props.course.startDate}</p>
-          <p><span className="fw-bold">Fecha de finalización: </span>{props.course.endDate}</p>
-
+          <p>
+            <span className="fw-bold">
+              Fecha de inicio:
+            </span>
+            {/* {props.course.startDate} */}
+            <input type="date" className="ms-2" value={props.course.startDate.substring(0, 10)} readOnly />
+          </p>
+          <p>
+            <span className="fw-bold">
+              Fecha de finalización:
+            </span>
+            {/* {props.course.endDate} */}
+            <input type="date" className="ms-2" value={props.course.endDate.substring(0, 10)} readOnly />
+          </p>
         </div>
       </div>
       <div className="row">

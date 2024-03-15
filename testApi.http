@@ -100,10 +100,10 @@ Content-Type: application/json
 Cookie: {{token}}
 
 {
-    "courseCode": "wun6",
-    "cedula": 111111111,
+    "courseCode": "bbbb",
+    "cedula": 111111112,
     "name": "Marian",
-    "lastname": "",
+    "lastname": "jfakdsjkjf",
     "bornDate": "2003-06-03",
     "gender": "Masculino",
     "phone": "8483-8466",
@@ -149,10 +149,8 @@ Cookie: {{token}}
 }
 
 ### Eliminar un estudiante de un curso por la cédula
-DELETE {{apiUrl}}/students/118760048?courseCode=wun6
+DELETE {{apiUrl}}/students/118760046?courseCode=bbbb
 Cookie: {{token}}
-
-
 
 
 

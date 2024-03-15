@@ -87,7 +87,12 @@ export default function CoursePage({ params }) {
 					<div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 						<div className="accordion-body style={{ backgroundColor: '#eee' }}">
 							{/* Matrícula */}
-							<Enrollment students={students} courseCode={params.code} />
+							<Enrollment 
+								students={students} 
+								setStudents={setStudents} 
+								courseCode={params.code} 
+								fetchStudents={fetchStudents} 
+							/>
 						</div>
 					</div>
 				</div>
