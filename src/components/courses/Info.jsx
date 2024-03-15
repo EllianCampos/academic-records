@@ -28,15 +28,15 @@ export default function Info(props) {
             <span className="fw-bold">
               Fecha de inicio:
             </span>
-            {/* {props.course.startDate} */}
-            <input type="date" className="ms-2" value={props.course.startDate.substring(0, 10)} readOnly />
+            {props.course.startDate}
+            {/* <input type="date" className="ms-2" value={props.course.startDate.substring(0, 10)} readOnly /> */}
           </p>
           <p>
             <span className="fw-bold">
               Fecha de finalización:
             </span>
-            {/* {props.course.endDate} */}
-            <input type="date" className="ms-2" value={props.course.endDate.substring(0, 10)} readOnly />
+            {props.course.endDate}
+            {/* <input type="date" className="ms-2" value={props.course.endDate.substring(0, 10)} readOnly /> */}
           </p>
         </div>
       </div>
