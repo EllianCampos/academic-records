@@ -40,7 +40,7 @@ export default function HomePage() {
           </div>
         </section> */}
 
-        <section className="container p-5">
+        <section className="container p-5 mb-4">
           <h2>Soy un estudiante</h2>
           <p>Si sos un estudiante podes consultar tus calificaciones y el estado de tus cursos</p>
           <Link href="/students" className="btn btn-success" >Ir al portal de estudiantes</Link>
