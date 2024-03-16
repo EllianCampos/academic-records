@@ -38,7 +38,7 @@ export async function GET(req) {
 		const gradeslines = await prisma.students.findMany({
 			where: {
 				enrollment: {
-					every: {
+					some: {
 						courseCode: courseCode
 					}
 				}

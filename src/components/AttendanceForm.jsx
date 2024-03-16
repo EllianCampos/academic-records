@@ -110,8 +110,8 @@ export default function AttendanceForm(props) {
         <option value="PRESENTE">PRESENTE</option>
         <option value="AUSENTE">AUSENTE</option>
         <option value="AUSENTE - JUSTIFICADO">AUSENTE - JUSTIFICADO</option>
-        <option value="LLEGADA TARDIA">LLEGADA TARDIA</option>
-        <option value="LLEGADA TARDIA - JUSTIFICADA">LLEGADA TARDIA - JUSTIFICADA</option>
+        {/* <option value="LLEGADA TARDIA">LLEGADA TARDIA</option> */}
+        {/* <option value="LLEGADA TARDIA - JUSTIFICADA">LLEGADA TARDIA - JUSTIFICADA</option> */}
       </select>
 
       <div className="form-floating mt-3">

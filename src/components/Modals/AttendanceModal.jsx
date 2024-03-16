@@ -37,7 +37,10 @@ export default function AttendanceModal(props) {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5">
-                {`Asistencia ${props.attendanceHeader.date.substring(0,10)}(${props.attendanceHeader.description})`}
+                {/* {`Asistencia ${props.attendanceHeader.date.substring(0,10)}(${props.attendanceHeader.description})`} */}
+                Asistencia 
+                <input type="date" className="mx-2" value={props.attendanceHeader.date != null && (props.attendanceHeader.date.substring(0,10))} readOnly />
+                ({props.attendanceHeader.description})
               </h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
             </div>

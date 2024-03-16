@@ -105,8 +105,6 @@ export default function NewEditCoursePage({ params }) {
 				})
 			}
 		});
-
-		
 	}
 
 	useEffect(() => {

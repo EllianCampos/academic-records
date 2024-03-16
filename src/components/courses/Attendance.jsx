@@ -151,7 +151,10 @@ export default function Attendance(props) {
           <tbody>
             {attendanceHeaders.map(item => (
               <tr key ={item.id}>
-                <td>{item.date.substring(0, 10)}</td>
+                <td>
+                  {/* {item.date.substring(0, 10)} */}
+                  <input type="date" className="m-1" value={item.date != null && (item.date.substring(0,10))} readOnly />
+                </td>
                 <td>{item.description}</td>
                 <td>
                   <AttendanceModal attendanceHeader={item} courseCode={props.courseCode} />
@@ -159,7 +162,7 @@ export default function Attendance(props) {
                 <td>
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-2"
                     onClick={() => {
                       setMethod('PUT')
                       setId(item.id)

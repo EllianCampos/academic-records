@@ -18,6 +18,8 @@ export default function StudentsPage() {
 
 	const [showAttendance, setShowAttendance] = useState(false)
 
+	const [showReport, setShowReport] = useState(false)
+
 	const handleSubmit = (event) => {
 		event.preventDefault()
 
@@ -44,6 +46,7 @@ export default function StudentsPage() {
 					setGrades(res[2])
 					setAttendace(res[3])
 					setNote(res[4])
+					setShowReport(true)
 				}
 			})
 	}
@@ -57,7 +60,7 @@ export default function StudentsPage() {
 			</Link>
 			<h2 className="text-center">Portal Estudiantes</h2>
 
-			{grades.length === 0 ?
+			{!showReport ?
 				<>
 					<section className="container">
 						<p>
@@ -111,7 +114,7 @@ export default function StudentsPage() {
 					<div className="d-flex justify-content-end">
 						<button
 							className="btn btn-secondary"
-							onClick={() => setGrades([])}
+							onClick={() => setShowReport(false)}
 						>
 							Cancelar
 						</button>
@@ -141,9 +144,17 @@ export default function StudentsPage() {
 							<p>Nota: {note}/100</p>
 						</div>
 
-						{grades.map((grade, index) => (
-							<GradeCard key={index} grade={grade} />
-						))}
+						{grades.length === 0 ?
+							<p className="text-danger fw-bold text-center">El profesor aún no ha cargado ninguna calificación</p>
+							:
+							<>
+								{
+									grades.map((grade, index) => (
+										<GradeCard key={index} grade={grade} />
+									))
+								}
+							</>
+						}
 					</div>
 
 					<div>
