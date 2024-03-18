@@ -2,7 +2,7 @@
 
 Desarrollado para facilitar la labor de los docentes. Con esta plataforma, los profesores pueden registrar a sus estudiantes, crear evaluaciones personalizadas, revisar el progreso de los alumnos y generar calificaciones de manera eficiente. Ya no tendrás que lidiar con montones de papeles y hojas de cálculo; todo está centralizado en un solo lugar. Además, podrás acceder a las notas y estadísticas de tus estudiantes de forma rápida y sencilla.
 
-![Imagen del diagrama entidad relación de la base de datos](https://github.com/antoniosarosi/Wallpapers/blob/master/04.jpg?raw=true)
+![Imagen del diagrama entidad relación de la base de datos](https://github.com/EllianCampos/academic-records/blob/master/sql/academic_records_erd.png?raw=true)
 
 
 ## Probar online
