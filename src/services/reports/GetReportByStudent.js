@@ -98,11 +98,11 @@ export default async function GetReportByStudent(courseCode, studentCedula, stud
   let note = 0
   note = Number(grades[1]) + attendance[1]
 
-  return NextResponse.json([
+  return [
     courseReport,
     studentReport,
     gradesReport,
     attendanceReport,
     note // Math.round(note)]
-  ])
+  ]
 }

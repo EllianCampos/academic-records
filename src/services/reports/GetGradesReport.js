@@ -3,7 +3,6 @@ export default function GetGradesReport(data) {
   let note = 0
 
   for (const item of data.courses.evaluations) {
-    console.log(item)
     if (!item.isAutoCalculated && item.grades[0]) {
       const totalPoints = Number(item.points)
       const totalPercentaje = Number(item.percentaje)

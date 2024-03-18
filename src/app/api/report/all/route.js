@@ -1,21 +1,27 @@
-// import { reportSchema } from "@/schemas/report.schema";
-// import GetReportByStudent from "@/services/reports/reports.servive";
-// import { NextResponse } from "next/server";
+import GetReportByCourse from "@/services/reports/GetReportByCourse";
+import GetUserFromToken from "@/services/users/GetUserFromToken";
+import { NextResponse } from "next/server";
 
-// export async function GET(req) {
-//   let courseCode
+export async function GET(req) {
+  let courseCode
 
-//   try {
-//     const searchParams = req.nextUrl.searchParams
-//     courseCode = searchParams.get("courseCode")
+  // user
+  const user = await GetUserFromToken(req)
+  if (user[0] !== null) return NextResponse.json({ errorMessage: user[0] }, { status: 401 })
 
-//     if (courseCode === null) {
-//       return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
-//   }
+  // course code
+  try {
+    const searchParams = req.nextUrl.searchParams
+    courseCode = searchParams.get("courseCode")
 
-//   return GetReportByStudent(schema.data.courseCode, schema.data.cedula, schema.data.bornDate)
-// }
+    if (courseCode === null) {
+      return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
+    }
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
+  }
+
+  const report = await GetReportByCourse(user.id, courseCode)
+  return NextResponse.json(report)
+}

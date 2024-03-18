@@ -1,5 +1,5 @@
 import { reportSchema } from "@/schemas/report.schema";
-import GetReportByStudent from "@/services/reports/reports.service";
+import GetReportByStudent from "@/services/reports/GetReportByStudent";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -24,5 +24,6 @@ export async function GET(req) {
     return NextResponse.json(schema.error)
   }
 
-  return GetReportByStudent(schema.data.courseCode, schema.data.cedula, schema.data.bornDate)
+  const report = await GetReportByStudent(schema.data.courseCode, schema.data.cedula, schema.data.bornDate)
+  return NextResponse.json(report)
 }
