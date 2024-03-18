@@ -63,7 +63,6 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 						confirmButtonText: 'Aceptar'
 					})
 				} else {
-					document.getElementById(`btnCloseStudent${id}Modal`).click()
 					setCedula('')
 					setName('')
 					setLastname('')
@@ -78,8 +77,11 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 					setDistrito('')
 					setComunidad('')
 					setObservations('')
-					fetchStudents()
 					Swal.fire(method === 'POST' ? 'Estudiante matriculado exitosamente' : 'Los datos del estudiante han sido actualizados exitosamente')
+						.then(result => {
+							document.getElementById(`btnCloseStudent${id}Modal`).click()
+							location.href = `/courses/${courseCode}`
+						})
 				}
 			})
 	}

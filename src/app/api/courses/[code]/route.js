@@ -92,7 +92,6 @@ export async function PUT(req, { params }) {
 			data: {
 				name: newCourse.data.name,
 				durationHours: newCourse.data.durationHours,
-				numberStudentsEnrolled: 0,
 				schedule: newCourse.data.schedule,
 				startDate: new Date(newCourse.data.startDate),
 				endDate: new Date(newCourse.data.endDate),

@@ -50,6 +50,11 @@ export async function GET(req) {
             },
             select: {
                 students: true
+            },
+            orderBy: {
+                students: {
+                    lastname: 'asc'
+                }
             }
         })
 

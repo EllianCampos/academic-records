@@ -29,12 +29,13 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
 							confirmButtonText: 'Aceptar'
 						})
 					} else {
-            fetchStudents()
 						Swal.fire({
 							title: "Estudiante Eliminado",
 							text: res.message,
 							icon: "success"
-						});
+						}).then(result => {
+              location.href = `/courses/${courseCode}`
+            })
 					}
 				})
 			}

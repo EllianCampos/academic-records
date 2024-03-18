@@ -10,7 +10,7 @@ https://academic-records.vercel.app/
 
 ## Ejecutar en local
 **Requisitos**
-- Git(Opcional puede descargar el proyecto en zip)
+- Git (Opcional puede descargar el proyecto en zip)
 - NodeJS
 - MySQL
 

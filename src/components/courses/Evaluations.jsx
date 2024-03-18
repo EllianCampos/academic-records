@@ -50,7 +50,6 @@ export default function Evaluations(props) {
       .then(res => res.json())
       .then(res => {
         if (res.issues) {
-          // alert(res.issues[0].message)
           Swal.fire({
             title: 'Información incompleta',
             text: res.issues[0].message,
@@ -58,7 +57,6 @@ export default function Evaluations(props) {
             confirmButtonText: 'Lo corregiré'
           })
         } else if (res.errorMessage) {
-          // alert(res.errorMessage)
           Swal.fire({
             title: 'Error, algo salio mal',
             text: res.errorMessage,

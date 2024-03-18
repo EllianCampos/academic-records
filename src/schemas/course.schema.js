@@ -27,9 +27,10 @@ export const courseSchema = z.object({
         .max(500, {
             message: "El horario del curso no puede tener más de 500 caracteres de longitud"
         })
-        .min(1, {
-            message: 'El horario del curso es requerido'
-        }),
+        // .min(1, {
+        //     message: 'El horario del curso es requerido'
+        // }),
+        ,
     startDate: z
         .string({ required_error: "Incluye <<< startDate >>> en la petición" })
         .min(1, {

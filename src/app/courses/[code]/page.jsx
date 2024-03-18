@@ -6,6 +6,7 @@ import Evaluations from "@/components/courses/Evaluations";
 import Grades from "@/components/courses/Grades";
 import Info from "@/components/courses/Info";
 import Teachers from "@/components/courses/Teachers";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function CoursePage({ params }) {
@@ -45,6 +46,14 @@ export default function CoursePage({ params }) {
 
 	return (
 		<main className="container">
+			<nav className="mt-1">
+				<ol className="breadcrumb">
+					<li className="breadcrumb-item"><Link href="/">Home</Link></li>
+					<li className="breadcrumb-item"><Link href="/courses">Mis cursos</Link></li>
+					<li className="breadcrumb-item active">Curso</li>
+				</ol>
+			</nav>
+
 			<div className="accordion mt-3" id="accordionExample">
 
 				{/* Info */}

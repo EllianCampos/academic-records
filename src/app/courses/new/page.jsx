@@ -1,4 +1,5 @@
 'use client'
+import Required from "@/components/Required"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -58,9 +59,19 @@ export default function NewEditCoursePage({ params }) {
 			})
 			.then(res => {
 				if (res.issues) {
-					alert(res.issues[0].message)
+					Swal.fire({
+						title: 'Información incompleta',
+						text: res.issues[0].message,
+						icon: 'warning',
+						confirmButtonText: 'Lo corregiré'
+					})
 				} else if (res.errorMessage) {
-					alert(res.errorMessage)
+					Swal.fire({
+						title: 'Error, algo salio mal',
+						text: res.errorMessage,
+						icon: 'error',
+						confirmButtonText: 'Aceptar'
+					})
 				} else {
 					Swal.fire({
 						title: params.code ? 'Curso actualizado exitosamente' : 'Curso creado exitosamente',
@@ -116,7 +127,7 @@ export default function NewEditCoursePage({ params }) {
 			<h1 className="text-center">{params.code ? "Editar curso" : "Nuevo curso"}</h1>
 			<form onSubmit={handleSubmit}>
 				<div className="mt-3">
-					<label htmlFor="name" className="form-label">Nombre del curso</label>
+					<label htmlFor="name" className="form-label">Nombre del curso <Required /></label>
 					<input
 						value={name}
 						onChange={event => setName(event.target.value)}
@@ -127,7 +138,7 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="durationHours" className="form-label">Duración en horas</label>
+					<label htmlFor="durationHours" className="form-label">Duración en horas <Required /></label>
 					<input
 						value={durationHours}
 						onChange={event => setDurationHours(event.target.value)}
@@ -138,7 +149,7 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="quota" className="form-label">Cupo máximo</label>
+					<label htmlFor="quota" className="form-label">Cupo máximo <Required /></label>
 					<input
 						value={quota}
 						onChange={event => setQuota(event.target.value)}
@@ -149,7 +160,7 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="startDate" className="form-label">Fecha de inicio</label>
+					<label htmlFor="startDate" className="form-label">Fecha de inicio <Required /></label>
 					<input
 						value={startDate}
 						onChange={event => setStartDate(event.target.value)}
@@ -160,7 +171,7 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="endDate" className="form-label">Fecha de finalización</label>
+					<label htmlFor="endDate" className="form-label">Fecha de finalización <Required /></label>
 					<input
 						value={endDate}
 						onChange={event => setEndDate(event.target.value)}
@@ -171,14 +182,13 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				<div className="mt-3">
-					<label htmlFor="attendacePercentaje" className="form-label">Porcentaje de asistencia</label>
+					<label htmlFor="attendacePercentaje" className="form-label">Porcentaje de asistencia <Required /></label>
 					<input
 						value={attendacePercentaje}
 						onChange={event => setAttendacePercentaje(event.target.value)}
 						type="number"
 						className="form-control"
 						id="attendacePercentaje"
-						required
 					/>
 				</div>
 				<div className="mt-3">
@@ -189,7 +199,6 @@ export default function NewEditCoursePage({ params }) {
 						className="form-control"
 						id="schedule"
 						rows={5}
-						required
 					/>
 				</div>
 				{params.code && (

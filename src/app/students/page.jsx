@@ -6,9 +6,9 @@ import Swal from "sweetalert2";
 
 export default function StudentsPage() {
 
-	const [studentCedula, setStudentCedula] = useState('')
-	const [studentBornDate, setStudentBornDate] = useState('')
-	const [courseCode, setCourseCode] = useState('')
+	const [studentCedula, setStudentCedula] = useState('123456781')
+	const [studentBornDate, setStudentBornDate] = useState('2018-01-29')
+	const [courseCode, setCourseCode] = useState('iqte')
 
 	const [course, setCourse] = useState({})
 	const [student, setStudent] = useState({})
@@ -91,7 +91,7 @@ export default function StudentsPage() {
 								<input
 									value={studentCedula}
 									onChange={event => setStudentCedula(event.target.value)}
-									type="text"
+									type="number"
 									className="form-control"
 								/>
 								<label>Cédula:</label>

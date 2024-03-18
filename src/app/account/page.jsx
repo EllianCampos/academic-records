@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { signOut } from "next-auth/react"
+import Swal from "sweetalert2"
 
 export default function AccountPage() {
 	const [user, setUser] = useState({})
@@ -34,10 +35,10 @@ export default function AccountPage() {
 		})
 			.then(res => {
 				if (res.ok) {
-					alert('Contraseña actualizada exitosamente')
+					Swal.fire('Contraseña actualizada exitosamente')
 					signOut()
 				} else {
-					alert('Algo salio mal, No ha sido posible cambiar la contraseña')
+					Swal.fire('Algo salio mal, No ha sido posible cambiar la contraseña', "error")
 				}
 			})
 	}
