@@ -104,7 +104,7 @@ export default function CoursesPage() {
 							<p>
 								<b>{invitation.senderName} </b>
 								Te ha invitado ha formar parte del curso
-								<span className="fw-bold"> "{invitation.courseName}"</span>
+								<span className="fw-bold">{`"${invitation.courseName}"`}</span>
 							</p>
 							<div className="d-flex justify-content-around">
 								<button
