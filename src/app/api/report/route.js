@@ -15,7 +15,6 @@ export async function GET(req) {
       return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
     }
   } catch (error) {
-    console.log(error)
     return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
   }
 

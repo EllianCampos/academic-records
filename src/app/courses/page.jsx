@@ -55,6 +55,34 @@ export default function CoursesPage() {
 			})
 	}
 
+	const declineInvitation = (courseCode) => {
+		fetch('/api/courses/share/decline', {
+			method: 'POST',
+			headers: {
+				'ContentType': 'application/json'
+			},
+			body: JSON.stringify({
+				courseCode: courseCode
+			})
+		})
+			.then(res => res.json())
+			.then(res => {
+				if (res.errorMessage) {
+					Swal.fire({
+						title: 'Error, algo salio mal',
+						text: res.errorMessage,
+						icon: 'error',
+						confirmButtonText: 'Aceptar'
+					})
+				} else {
+					Swal.fire(res.message)
+						.then(result => {
+							location.reload()
+						})
+				}
+			})
+	}
+
 	const getCountOfInvitations = () => {
 		let count = 0
 		for (const invitacion of invitations) {
@@ -104,7 +132,7 @@ export default function CoursesPage() {
 							<p>
 								<b>{invitation.senderName} </b>
 								Te ha invitado ha formar parte del curso
-								<span className="fw-bold">{`"${invitation.courseName}"`}</span>
+								<span className="fw-bold">{` "${invitation.courseName}"`}</span>
 							</p>
 							<div className="d-flex justify-content-around">
 								<button
@@ -114,7 +142,13 @@ export default function CoursesPage() {
 								>
 									Aceptar
 								</button>
-								<button type="button" className="btn btn-danger">Aceptar</button>
+								<button 
+									type="button" 
+									className="btn btn-danger"	
+									onClick={() => declineInvitation(invitation.courseCode)}
+								>
+									Rechazar
+								</button>
 							</div>
 							<hr />
 						</div>

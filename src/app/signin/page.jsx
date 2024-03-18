@@ -22,13 +22,13 @@ export default function SignInPage(props) {
 			email, password, redirect: false
 		})
 			.then(authres => {
+				Swal.close()
 				if (authres.error) {
 					return setError(authres.error)
 				}
 				if (authres.ok) {
 					// return router.push('/courses')
 					location.href = '/courses'
-					Swal.close()
 				}
 			})
 	}

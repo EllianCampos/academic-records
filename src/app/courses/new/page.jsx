@@ -85,35 +85,38 @@ export default function NewEditCoursePage({ params }) {
 
 	const handleDelete = () => {
 		Swal.fire({
-			title: "Eliminar curso",
-			text: "¿Estás seguro que deseas eliminar el curso con toda la información?",
+			title: amICreator ? 'Eliminar curso' : 'Abandonar curso',
+			text: amICreator ?
+				'¿Estás seguro que deseas eliminar el curso con toda la información?'
+				:
+				'¿Estás seguro que deseas dejar de formar parte del curso?',
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#d33",
 			cancelButtonColor: "##6c757d",
-			confirmButtonText: "Si, Eliminar",
+			confirmButtonText: amICreator ? 'Si, Eliminar' : 'Si, Abandonar',
 			cancelButtonText: "Cancelar"
 		}).then((result) => {
 			if (result.isConfirmed) {
 				fetch(`/api/courses/${params.code}`, { method: 'DELETE' })
-				.then(res => res.json())
-				.then(res => {
-					if (res.errorMessage) {
-						Swal.fire({
-							title: 'Error, algo salio mal',
-							text: res.errorMessage,
-							icon: 'error',
-							confirmButtonText: 'Aceptar'
-						})
-					} else {
-						Swal.fire({
-							title: "Curso Eliminado",
-							text: res.message,
-							icon: "success"
-						});
-						router.push(`/courses`)
-					}
-				})
+					.then(res => res.json())
+					.then(res => {
+						if (res.errorMessage) {
+							Swal.fire({
+								title: 'Error, algo salio mal',
+								text: res.errorMessage,
+								icon: 'error',
+								confirmButtonText: 'Aceptar'
+							})
+						} else {
+							Swal.fire({
+								title: amICreator ? 'Curso eliminado' : 'Ya no formas parte del curso',
+								text: res.message,
+								icon: "success"
+							})
+								.then(result => router.push(`/courses`))
+						}
+					})
 			}
 		});
 	}

@@ -52,8 +52,6 @@ export async function POST(req) {
 		return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
 	}
 
-	console.log(courseCode, emailReceptor, user)
-
 	// Validate request
 	let newInvitation
 	try {

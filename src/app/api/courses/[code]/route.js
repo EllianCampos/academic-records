@@ -1,6 +1,7 @@
 import { prisma } from "@/libs/prisma";
 import { courseSchema } from "@/schemas/course.schema";
 import { getToken } from "next-auth/jwt";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
@@ -16,7 +17,7 @@ export async function GET(req, { params }) {
 	// Check the params
 	if (params.code == null) return NextResponse.json({ errorMessage: "Acción no válida" }, { status: 400 })
 
-	const courses = await prisma.usercourses.findFirst({
+	let courses = await prisma.usercourses.findFirst({
 		where: {
 			userId: user.id,
 			courseCode: params.code
@@ -40,10 +41,45 @@ export async function GET(req, { params }) {
 					updatedAt: true,
 					updatedBy: true
 				}
-			}
+			},
+
 		}
-	});
-	
+	},
+	);
+
+	if (!courses) {
+		return NextResponse.json({ errorMessage: 'Acceso NO autorizado' }, { status: 401 });
+	}
+
+	const teachers = await prisma.usercourses.findMany({
+		where: {
+			courseCode: params.code
+		},
+		select: {
+			users: {
+				select: {
+					id: true,
+					name: true,
+					lastname: true,
+					email: true,
+				}
+			},
+			isCreator: true
+		}
+	})
+
+	const teachersData = []
+	for (const teacher of teachers) {
+		teachersData.push({
+			id: teacher.users.id,
+			fullname: teacher.users.name + ' ' + teacher.users.lastname,
+			email: teacher.users.email,
+			isCreator: teacher.isCreator
+		})
+	}
+
+	courses.teachers = teachersData
+
 	return NextResponse.json(courses)
 }
 

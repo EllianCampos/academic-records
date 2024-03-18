@@ -32,7 +32,7 @@ export default function GradeCard({ grade }) {
             </h3>
             <div className="p-2 pb-3">
               <p className="m-1">Puntos: {grade.gettedPoints}/{grade.totalPoints}</p>
-              <p className="m-1">Porcentaje: {grade.gettedPercentaje}/{grade.totalPercentaje}</p>
+              <p className="m-1">Porcentaje: {grade.gettedPercentaje}%/{grade.totalPercentaje}%</p>
               <p className="m-1">Nota: {grade.gettedNote}/100</p>
             </div>
             {grade.feedback && (

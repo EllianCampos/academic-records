@@ -1,5 +1,4 @@
 'use client'
-import AddStudentModal from "@/components/Modals/AddStudentModal";
 import Attendance from "@/components/courses/Attendance";
 import Enrollment from "@/components/courses/Enrollment";
 import Evaluations from "@/components/courses/Evaluations";
@@ -14,28 +13,46 @@ export default function CoursePage({ params }) {
 	const [students, setStudents] = useState([])
 	const [evaluations, setEvaluations] = useState([])
 	const [amICreator, setAmICreator] = useState(false)
+	const [teachers, setTeachers] = useState({})
 
 	const fetchCourseData = () => {
 		fetch(`/api/courses/${params.code}`)
 			.then(res => res.json())
 			.then(res => {
+				if (res.errorMessage) {
+					return location.href = '../'
+				}
+
 				if (res.isCreator) {
 					setAmICreator(true)
 				}
 				setCourse(res.courses)
+				setTeachers(res.teachers)
 			})
 	}
 
 	const fetchStudents = () => {
 		fetch(`/api/students?courseCode=${params.code}`)
 			.then(res => res.json())
-			.then(res => setStudents(res))
+			.then(res => {
+				if (res.errorMessage) {
+					return location.href = '../'
+				}
+
+				setStudents(res)
+			})
 	}
 
 	const fetchEvaluations = () => {
 		fetch(`/api/evaluations?courseCode=${params.code}`)
 			.then(res => res.json())
-			.then(res => setEvaluations(res))
+			.then(res => {
+				if (res.errorMessage) {
+					return location.href = '../'
+				}
+				
+				setEvaluations(res)
+			})
 	}
 
 	useEffect(() => {
@@ -43,6 +60,8 @@ export default function CoursePage({ params }) {
 		fetchStudents()
 		fetchEvaluations()
 	}, [])
+
+	console.log(teachers)
 
 	return (
 		<main className="container">
@@ -82,8 +101,7 @@ export default function CoursePage({ params }) {
 						<div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 							<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
 								{/* Profesores */}
-								<Teachers courseCode={params.code} />
-
+								<Teachers courseCode={params.code} teachers={teachers} />
 							</div>
 						</div>
 					</div>
