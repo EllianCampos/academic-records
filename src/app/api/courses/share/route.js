@@ -1,27 +1,29 @@
 import { prisma } from "@/libs/prisma";
+import { shareCourseSendSchema } from "@/schemas/shareCourseSend.schema";
+import GetUserFromToken from "@/services/users/GetUserFromToken";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-		// Validate if the request contains a token
-		let user = {}
-		try {
-			let token = await getToken({ req })
-			user = token.user
-		} catch (error) {
-			return NextResponse.json({
-				errorMessage: 'Acceso NO autorizado'
-			}, { status: 401 });
+	// Validate if the request contains a token
+	let user = {}
+	try {
+		let token = await getToken({ req })
+		user = token.user
+	} catch (error) {
+		return NextResponse.json({
+			errorMessage: 'Acceso NO autorizado'
+		}, { status: 401 });
+	}
+
+	const invitations = await prisma.invitations.findMany({
+		where: {
+			receptorId: user.id,
+			state: 'SENDED'
 		}
+	})
 
-		const invitations = await prisma.invitations.findMany({
-			where: {
-				receptorId: user.id,
-				state: 'SENDED'
-			}
-		})
-
-		return NextResponse.json(invitations)
+	return NextResponse.json(invitations)
 }
 
 export async function POST(req) {
@@ -37,13 +39,33 @@ export async function POST(req) {
 	}
 
 	// Get params
-	const searchParams = req.nextUrl.searchParams
-	const courseCode = searchParams.get("coursecode")
-	const emailReceptor = searchParams.get("emailreceptor")
-	if (!courseCode || courseCode === '' || !emailReceptor || emailReceptor === '') {
+	let courseCode, emailReceptor
+	try {
+		const searchParams = req.nextUrl.searchParams
+		courseCode = searchParams.get("courseCode")
+		emailReceptor = searchParams.get("emailReceptor")
+
+		// if (!courseCode || !emailReceptor) {
+		// 	return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
+		// }
+	} catch (error) {
 		return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
 	}
 
+	console.log(courseCode, emailReceptor, user)
+
+	// Validate request
+	let newInvitation
+	try {
+		newInvitation = shareCourseSendSchema.safeParse({courseCode, emailReceptor})
+		if (!newInvitation.success) {
+			return NextResponse.json(newInvitation.error)
+		}
+	} catch (error) {
+		return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
+	}
+
+	// Search the course
 	const emisorUserCourse = await prisma.usercourses.findFirst({
 		where: {
 			courseCode: courseCode,
@@ -59,7 +81,7 @@ export async function POST(req) {
 		return NextResponse.json({ errorMessage: 'El curso no existe' }, { status: 400 })
 	}
 
-	// Validate if the user is the creatorof the course
+	// Validate if the user is the creator of the course
 	if (!emisorUserCourse.isCreator) {
 		return NextResponse.json({ errorMessage: 'No puedes compartir el curso con alguien más porque no eres el creador' }, { status: 400 })
 	}

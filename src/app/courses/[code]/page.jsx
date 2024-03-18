@@ -72,7 +72,7 @@ export default function CoursePage({ params }) {
 				</div>
 
 				{/* Teachers */}
-				{/* <div className="accordion-item">
+				<div className="accordion-item">
 					<h2 className="accordion-header">
 						<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 							Profesores
@@ -80,11 +80,11 @@ export default function CoursePage({ params }) {
 					</h2>
 					<div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
 						<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
-							Profesores
-							<Teachers />
+							{/* Profesores */}
+							<Teachers courseCode={params.code} />
 						</div>
 					</div>
-				</div> */}
+				</div>
 
 				{/* Enrollment */}
 				<div className="accordion-item">
