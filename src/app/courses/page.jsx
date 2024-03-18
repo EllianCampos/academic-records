@@ -100,7 +100,7 @@ export default function CoursesPage() {
 				</div>
 				<div className="offcanvas-body">
 					{invitations.map(invitation => (
-						<div>
+						<div key={invitation.id}>
 							<p>
 								<b>{invitation.senderName} </b>
 								Te ha invitado ha formar parte del curso
