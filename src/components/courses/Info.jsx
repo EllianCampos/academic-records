@@ -29,19 +29,27 @@ export default function Info(props) {
               Fecha de inicio:
             </span>
             {/* {props.course.startDate} */}
-            <input type="date" className="ms-2" value={props.course.startDate != null && (props.course.startDate.substring(0,10))} readOnly />
+            <input type="date" className="ms-2" value={props.course.startDate != null && (props.course.startDate.substring(0, 10))} readOnly />
           </p>
           <p>
             <span className="fw-bold">
               Fecha de finalización:
             </span>
             {/* {props.course.endDate} */}
-            <input type="date" className="ms-2" value={props.course.endDate != null && (props.course.endDate.substring(0,10))} readOnly />
+            <input type="date" className="ms-2" value={props.course.endDate != null && (props.course.endDate.substring(0, 10))} readOnly />
           </p>
         </div>
       </div>
       <div className="row">
         <p><span className="fw-bold">Horario: </span>{props.course.schedule}</p>
+      </div>
+      <div className="row">
+        <p className="fw-bold">Profesores: </p>
+        {props.teachers.map(teacher => ( 
+          <p key={teacher.id}>
+            {`- ${teacher.fullname}`}
+          </p>
+        ))}
       </div>
       <Link href={`/courses/edit/${props.courseCode}`} className="position-absolute top-0 end-0">Editar</Link>
     </section>

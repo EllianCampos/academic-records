@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
 
 export default function CoursesPage() {
-
+	
 	const [courses, setCourses] = useState([])
 	const [invitations, setInvitations] = useState([])
 	const [isFetching, setIsFetching] = useState(true)
@@ -117,10 +117,6 @@ export default function CoursesPage() {
 				</div>
 			)}
 
-
-
-			{/* <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button> */}
-
 			<div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 				<div className="offcanvas-header">
 					<h5 className="offcanvas-title" id="offcanvasScrollingLabel">Invitaciones</h5>
@@ -142,9 +138,9 @@ export default function CoursesPage() {
 								>
 									Aceptar
 								</button>
-								<button 
-									type="button" 
-									className="btn btn-danger"	
+								<button
+									type="button"
+									className="btn btn-danger"
 									onClick={() => declineInvitation(invitation.courseCode)}
 								>
 									Rechazar
@@ -178,12 +174,16 @@ export default function CoursesPage() {
 				</section>
 				:
 				<section className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-					{courses.map(course => (
+					{/* {courses.map(course => (
 						course.usercourses.length === 1 ? (
 							<Course key={course.code} course={course} color='#249bba' />
 						) : (
 							<Course key={course.code} course={course} color='#28aa42' />
 						)
+					))} */}
+
+					{courses.map(course => (
+							<Course key={course.code} course={course} color='#249bba' />
 					))}
 				</section>
 			}

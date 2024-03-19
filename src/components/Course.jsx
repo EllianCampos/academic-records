@@ -13,7 +13,7 @@ export default function Course({ course, color }) {
 			>
 				<div className="text-light">
 					<h3
-						className="text-center p-2 m-0 rounded-top-2"
+						className="text-center p-2 m-0 rounded-top-2 font_resize"
 						style={{ background: color }}
 					>
 						{course.name}

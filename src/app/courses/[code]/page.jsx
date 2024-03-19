@@ -13,7 +13,7 @@ export default function CoursePage({ params }) {
 	const [students, setStudents] = useState([])
 	const [evaluations, setEvaluations] = useState([])
 	const [amICreator, setAmICreator] = useState(false)
-	const [teachers, setTeachers] = useState({})
+	const [teachers, setTeachers] = useState([])
 
 	const fetchCourseData = () => {
 		fetch(`/api/courses/${params.code}`)
@@ -46,11 +46,11 @@ export default function CoursePage({ params }) {
 	const fetchEvaluations = () => {
 		fetch(`/api/evaluations?courseCode=${params.code}`)
 			.then(res => res.json())
-			.then(res => {
+			.then(res => {	
 				if (res.errorMessage) {
 					return location.href = '../'
 				}
-				
+
 				setEvaluations(res)
 			})
 	}
@@ -60,8 +60,6 @@ export default function CoursePage({ params }) {
 		fetchStudents()
 		fetchEvaluations()
 	}, [])
-
-	console.log(teachers)
 
 	return (
 		<main className="container">
@@ -85,7 +83,7 @@ export default function CoursePage({ params }) {
 					<div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
 						<div className="accordion-body" style={{ backgroundColor: '#eee' }} >
 							{/* Información del curso */}
-							<Info course={course} courseCode={params.code} />
+							<Info course={course} courseCode={params.code} teachers={teachers} />
 						</div>
 					</div>
 				</div>
