@@ -7,7 +7,7 @@ import GetAttendanceReport from "./GetAttendanceReport";
 export default async function GetReportByStudent(courseCode, studentCedula, studentBornDate) {
   // Search student
   const student = await GetStudentByBasicData(courseCode, studentCedula, studentBornDate)
-  if (student[0]) return NextResponse.json({ errorMessage: student[0] }, { status: 400 })
+  if (student[0]) return { errorMessage: student[0] }
 
   // Search students grades
   const data = await prisma.enrollment.findFirst({
