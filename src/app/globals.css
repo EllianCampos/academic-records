@@ -7,4 +7,5 @@ body {
 
 .font_resize{
     font-size: clamp(12px, 4vw, 32px);
+    text-align: justify;
 }

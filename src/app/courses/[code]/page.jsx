@@ -4,6 +4,7 @@ import Enrollment from "@/components/courses/Enrollment";
 import Evaluations from "@/components/courses/Evaluations";
 import Grades from "@/components/courses/Grades";
 import Info from "@/components/courses/Info";
+import Reports from "@/components/courses/Reports";
 import Teachers from "@/components/courses/Teachers";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -46,7 +47,7 @@ export default function CoursePage({ params }) {
 	const fetchEvaluations = () => {
 		fetch(`/api/evaluations?courseCode=${params.code}`)
 			.then(res => res.json())
-			.then(res => {	
+			.then(res => {
 				if (res.errorMessage) {
 					return location.href = '../'
 				}
@@ -71,7 +72,7 @@ export default function CoursePage({ params }) {
 				</ol>
 			</nav>
 
-			<div className="accordion mt-3" id="accordionExample">
+			<div className="accordion mt-3 mb-4" id="accordionExample">
 
 				{/* Info */}
 				<div className="accordion-item">
@@ -174,6 +175,20 @@ export default function CoursePage({ params }) {
 							<Attendance
 								courseCode={params.code}
 							/>
+						</div>
+					</div>
+				</div>
+
+				{/* Reports */}
+				<div className="accordion-item">
+					<h2 className="accordion-header">
+						<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+							Reporte
+						</button>
+					</h2>
+					<div id="collapseSeven" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+						<div className="accordion-body" style={{ backgroundColor: '#eee' }}>
+							<Reports courseCode={params.code} />
 						</div>
 					</div>
 				</div>
