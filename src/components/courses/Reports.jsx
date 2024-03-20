@@ -5,7 +5,6 @@ import Swal from "sweetalert2"
 
 export default function Reports(props) {
 
-  // const [data, setData] = useState([])
   const [reportDataHeaders, setReportDataHeaders] = useState([])
   const [reportDataRows, setReportDataRows] = useState([])
 
@@ -42,7 +41,6 @@ export default function Reports(props) {
     }
     reportHeadersSet.add('Nota Final')
     let reportHeaders = Array.from(reportHeadersSet)
-    // console.log(reportHeaders)
 
     for (const row of data) {
       let cedula = row[1].cedula
@@ -89,38 +87,43 @@ export default function Reports(props) {
   }
 
   return (
-    <section className="overflow-hidden ">
-      <div className="d-flex justify-content-center ">
+    <section className="overflow-scroll">
+      <div className="d-flex justify-content-around mb-2">
         <button
           className="btn btn-success"
           onClick={() => fetchData()}
         >
           Cargar Reporte
         </button>
+        <button
+          className="btn btn-info"
+          onClick={() => {
+            Swal.fire('Puedes copiar el reporte hacia Excel solo asegúrate de que tu curso se encuentre dentro de la tabla a la hora de copiar')
+          }}>
+          Copiar información
+        </button>
       </div>
 
-      <div className="overflow-scroll">
-        <table className="table table-striped mt-3">
-          <thead>
-            <tr>
-              {reportDataHeaders.map((header, index) => (
-                <th key={index}>{header}</th>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            {reportDataHeaders.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {reportDataRows.map((row, indexRow) => (
+            <tr key={indexRow}>
+              {reportDataHeaders.map((header, indexHeader) => (
+                <td key={`rowHead${indexHeader}x${indexRow}`}>
+                  {row[indexHeader]}
+                </td>
               ))}
             </tr>
-          </thead>
-          <tbody>
-            {reportDataRows.map((row, indexRow) => (
-              <tr key={indexRow}>
-                {reportDataHeaders.map((header, indexHeader) => (
-                  <td key={`rowHead${indexHeader}x${indexRow}`}>
-                    {row[indexHeader]}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </section>
   )
 }
