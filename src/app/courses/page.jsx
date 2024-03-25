@@ -96,13 +96,20 @@ export default function CoursesPage() {
 		for (const course of courses) {
 			if (!course.isFinished) {
 				count++
-			}	
+			}
 		}
-		console.log('count', count)
 		return count
 	}
 
-	console.log(courses)
+	const getCountOfFinishedCourses = () => {
+		let count = 0
+		for (const course of courses) {
+			if (course.isFinished) {
+				count++
+			}
+		}
+		return count
+	}
 
 	useEffect(() => {
 		fetchCourses()
@@ -199,18 +206,18 @@ export default function CoursesPage() {
 				</section>
 			}
 
-			<section className="mt-5">
-				<hr />
-				<h2>Cursos finalizados</h2>
-				<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-					{courses.map(course => (
-						course.isFinished && (
-							<Course key={course.code} course={course} color='#ccc' />
-						)
-					))}
-				</div>
-			</section>
-
+			{getCountOfFinishedCourses() != 0 && !isFetching ?
+				<section className="mt-5">
+					<hr />
+					<h2>Cursos finalizados</h2>
+					<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+						{courses.map(course => (
+							course.isFinished && (
+								<Course key={course.code} course={course} color='#ccc' />
+							)
+						))}
+					</div>
+				</section> : ''}
 		</main>
 	)
 }
