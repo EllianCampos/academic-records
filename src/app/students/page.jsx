@@ -70,7 +70,7 @@ export default function StudentsPage() {
 							</span>
 						</p>
 						<div className="alert alert-warning">
-							<p>Si no conoces el código del curso, se lo podes solicitar a tu profesor</p>
+							<p>Si no conoces el código del curso, se lo podés solicitar a tu profesor</p>
 						</div>
 					</section>
 

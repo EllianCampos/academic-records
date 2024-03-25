@@ -62,7 +62,7 @@ export default function HomePage() {
           <SignInPage hideBackBotton={true} />
         </section> */}
 
-        <section className="container py-4">
+        <section className="container py-5">
           <h2>Comentarios</h2>
           <CommentsForm />
         </section>

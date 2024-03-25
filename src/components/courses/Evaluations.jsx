@@ -141,7 +141,7 @@ export default function Evaluations(props) {
                 <br />
                 <br />
                 <span className="fw-bold"> Por ejemplo: </span>
-                Puedes crear una evaluación Tareas con un porcentaje 15 porciento. Si asignas 3 tareas cada una tendra un valor de 5% pero si asignados 2 cada una tendrá un valor de 7,5%
+                Puedes crear una evaluación Tareas con un porcentaje 15 porciento. Si asignas 3 tareas cada una tendrá un valor de 5% pero si asignados 2 cada una tendrá un valor de 7,5%
               </div>
             )}
           </>

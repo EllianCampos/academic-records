@@ -98,7 +98,7 @@ export default function Reports(props) {
         <button
           className="btn btn-info"
           onClick={() => {
-            Swal.fire('Puedes copiar el reporte hacia Excel solo asegúrate de que tu curso se encuentre dentro de la tabla a la hora de copiar')
+            Swal.fire('Puedes copiar el reporte hacia Excel solo asegúrate de que tu cursor(mouse) se encuentre dentro de la tabla a la hora de copiar')
           }}>
           Copiar información
         </button>
