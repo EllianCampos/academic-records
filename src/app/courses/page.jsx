@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
 
 export default function CoursesPage() {
-	
+
 	const [courses, setCourses] = useState([])
 	const [invitations, setInvitations] = useState([])
 	const [isFetching, setIsFetching] = useState(true)
@@ -91,6 +91,19 @@ export default function CoursesPage() {
 		return count
 	}
 
+	const getCountOfUnFinishedCourses = () => {
+		let count = 0
+		for (const course of courses) {
+			if (!course.isFinished) {
+				count++
+			}	
+		}
+		console.log('count', count)
+		return count
+	}
+
+	console.log(courses)
+
 	useEffect(() => {
 		fetchCourses()
 		fetchInvitations()
@@ -98,6 +111,8 @@ export default function CoursesPage() {
 
 	return (
 		<main className="container">
+
+			{/* Navegación */}
 			<nav className="mt-1">
 				<ol className="breadcrumb">
 					<li className="breadcrumb-item"><Link href="/">Home</Link></li>
@@ -105,6 +120,7 @@ export default function CoursesPage() {
 				</ol>
 			</nav>
 
+			{/* Invitaciones */}
 			{invitations.length != 0 && (
 				<div className="text-center my-4">
 					<button type="button" className="btn btn-primary position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling">
@@ -117,6 +133,7 @@ export default function CoursesPage() {
 				</div>
 			)}
 
+			{/* Mostrar invitaciones */}
 			<div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 				<div className="offcanvas-header">
 					<h5 className="offcanvas-title" id="offcanvasScrollingLabel">Invitaciones</h5>
@@ -165,35 +182,34 @@ export default function CoursesPage() {
 				</div>
 			</div>
 
-			{courses.length === 0 && !isFetching ?
+			{(courses.length === 0 && !isFetching) || (getCountOfUnFinishedCourses() == 0 && !isFetching) ?
 				<section className="d-flex justify-content-center">
-					<div className="bg-light text-primary fw-bold fs-5 p-5 rounded-5">
-						<p>Aun no tienes cursos</p>
+					<div className="bg-light text-primary fw-bold fs-5 p-5 rounded-5 text-center">
+						<p>Actualmente no tienes cursos</p>
 						<Link href='/courses/new' className="text-success">Crear mi primer curso</Link>
 					</div>
 				</section>
 				:
 				<section className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-					{/* {courses.map(course => (
-						course.usercourses.length === 1 ? (
-							<Course key={course.code} course={course} color='#249bba' />
-						) : (
-							<Course key={course.code} course={course} color='#28aa42' />
-						)
-					))} */}
-
 					{courses.map(course => (
+						!course.isFinished && (
 							<Course key={course.code} course={course} color='#249bba' />
+						)
 					))}
 				</section>
 			}
-			{/* {courses.map(course => (
-					course.usercourses.length === 1 ? (
-						<Course key={course.code} course={course} color='#249bba' />
-					) : (
-						<Course key={course.code} course={course} color='#28aa42' />
-					)
-				))} */}
+
+			<section className="mt-5">
+				<hr />
+				<h2>Cursos finalizados</h2>
+				<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+					{courses.map(course => (
+						course.isFinished && (
+							<Course key={course.code} course={course} color='#ccc' />
+						)
+					))}
+				</div>
+			</section>
 
 		</main>
 	)
