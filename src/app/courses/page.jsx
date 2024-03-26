@@ -176,8 +176,10 @@ export default function CoursesPage() {
 				</div>
 			</div>
 
+			<h1 className="mt-3 text-center">Mis cursos</h1>
+
 			<div className="d-flex justify-content-between py-2">
-				<h1 className="mt-3">Mis cursos</h1>
+				<h2 className="mt-3">Cursos Activos</h2>
 				<div>
 					<Link
 						href='/courses/new'
@@ -192,7 +194,7 @@ export default function CoursesPage() {
 			{(courses.length === 0 && !isFetching) || (getCountOfUnFinishedCourses() == 0 && !isFetching) ?
 				<section className="d-flex justify-content-center">
 					<div className="bg-light text-primary fw-bold fs-5 p-5 rounded-5 text-center">
-						<p>Actualmente no tienes cursos</p>
+						<p>Actualmente no tienes cursos activos</p>
 						<Link href='/courses/new' className="text-success">Crear mi primer curso</Link>
 					</div>
 				</section>
@@ -209,7 +211,7 @@ export default function CoursesPage() {
 			{getCountOfFinishedCourses() != 0 && !isFetching ?
 				<section className="mt-5">
 					<hr />
-					<h2>Cursos finalizados</h2>
+					<h2>Cursos Finalizados</h2>
 					<div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 						{courses.map(course => (
 							course.isFinished && (
