@@ -1,10 +1,9 @@
 'use client'
 import { useState } from "react"
 import Required from "../Required"
-import { useRouter } from "next/navigation"
 import Swal from "sweetalert2"
 
-export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode, fetchStudents }) {
+export default function AddStudentModal({ btnText, icon, color, method, id, student, courseCode }) {
 	const [cedula, setCedula] = useState(student ? student.cedula : '')
 	const [name, setName] = useState(student ? student.name : '')
 	const [lastname, setLastname] = useState(student ? student.lastname : '')
@@ -19,6 +18,44 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 	const [distrito, setDistrito] = useState(student ? (student.distrito ? student.distrito : '') : '')
 	const [comunidad, setComunidad] = useState(student ? (student.comunidad ? student.comunidad : '') : '')
 	const [observations, setObservations] = useState(student ? (student.observations ? student.observations : '') : '')
+
+	const [provinciaId, setProvinciaId] = useState(0)
+
+	const [cantones, setCantones] = useState([])
+	const [distritos, setDistritos] = useState([])
+
+
+	const fetchCantones = (provinciaId) => {
+		fetch(`https://ubicaciones.paginasweb.cr/provincia/${provinciaId}/cantones.json`)
+			.then(res => res.json())
+			.then(res => {
+				let arr = []
+				for (const key in res) {
+					const value = res[key]
+					arr.push({
+						cantonId: key,
+						name: value
+					})
+				}
+				setCantones(arr)
+			})
+	}
+
+	const fetchDistritos = (cantonId) => {
+		fetch(`https://ubicaciones.paginasweb.cr/provincia/${provinciaId}/canton/${cantonId}/distritos.json`)
+			.then(res => res.json())
+			.then(res => {
+				let arr = []
+				for (const key in res) {
+					const value = res[key]
+					arr.push({
+						distritoId: key,
+						name: value
+					})
+				}
+				setDistritos(arr)
+			})
+	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
@@ -256,44 +293,108 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 									</label>
 								</div>
 								<div className="form-floating mb-3">
-									<input
+									{/* <input
 										value={provincia}
 										onChange={event => setProvincia(event.target.value)}
 										type="text"
 										className="form-control"
 										id="provincia"
-									/>
-									<label
-										htmlFor="provincia"
+									/> */}
+									<select
+										defaultValue={provincia}
+										onClick={(event) => {
+											setcanton('')
+											setCantones([])
+											setDistrito('')
+											setDistritos([])
+											if (event.target.value !== '0') {
+												const selectedOption = event.target.options[event.target.selectedIndex];
+												const provinciaId = selectedOption.getAttribute('data-id');
+												setProvinciaId(provinciaId);
+												setProvincia(selectedOption.text);
+												fetchCantones(provinciaId);
+											}
+										}}
+										className="form-select"
 									>
+										<option value="0">-- Seleccione una Provincia --</option>
+										<option value="San José" data-id="1">San José</option>
+										<option value="Alajuela" data-id="2">Alajuela</option>
+										<option value="Cartago" data-id="3">Cartago</option>
+										<option value="Heredia" data-id="4">Heredia</option>
+										<option value="Guanacaste" data-id="5">Guanacaste</option>
+										<option value="Puntarenas" data-id="6">Puntarenas</option>
+										<option value="Limón" data-id="7">Limón</option>
+									</select>
+
+									<label htmlFor="provincia" className="form-label d-block">
 										Provincia
 									</label>
 								</div>
 								<div className="form-floating mb-3">
-									<input
+									{/* <input
 										value={canton}
 										onChange={event => setcanton(event.target.value)}
 										type="text"
 										className="form-control"
 										id="canton"
-									/>
-									<label
-										htmlFor="canton"
+									/> */}
+									<select
+										defaultValue={canton}
+										onChange={(event) => {
+											setDistrito('')
+											setDistritos([])
+											if (event.target.value != 0) {
+												const selectedOption = event.target.options[event.target.selectedIndex];
+												const cantonId = selectedOption.getAttribute('data-id');
+												setcanton(selectedOption.text)
+												fetchDistritos(cantonId)
+											}
+										}}
+										className="form-select"
 									>
+										<option value="0">
+											{method === 'POST'
+												? '-- Seleccione un Cantón --'
+												: (canton != '' ? `${canton}` : '-- Seleccione un Cantón --')}
+										</option>
+										{cantones.map((cant) => (
+											<option
+												key={'canton' + cant.cantonId}
+												value={cant.name}
+												data-id={cant.cantonId}
+											>
+												{cant.name}
+											</option>
+										))}
+									</select>
+									<label htmlFor="canton">
 										Cantón
 									</label>
 								</div>
 								<div className="form-floating mb-3">
-									<input
+									{/* <input
 										value={distrito}
 										onChange={event => setDistrito(event.target.value)}
 										type="text"
 										className="form-control"
 										id="distrito"
-									/>
-									<label
-										htmlFor="distrito"
+									/> */}
+									<select
+										defaultValue={distrito}
+										className="form-select"
+										onChange={(event) => setDistrito(event.target.value)}
 									>
+										<option value="">
+											{method === 'POST'
+												? '-- Seleccione un Distrito --'
+												: (distrito != '' ? `${distrito}` : '-- Seleccione un Distrito --')}
+										</option>
+										{distritos.map((dist) => (
+											<option key={'distrito' + dist.distritoId} value={dist.name}>{dist.name}</option>
+										))}
+									</select>
+									<label htmlFor="distrito">
 										Distrito
 									</label>
 								</div>
@@ -305,9 +406,7 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 										className="form-control"
 										id="comunidad"
 									/>
-									<label
-										htmlFor="comunidad"
-									>
+									<label htmlFor="comunidad">
 										Comunidad
 									</label>
 								</div>
@@ -322,7 +421,12 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 									/>
 								</div>
 								<div className="modal-footer">
-									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal" id={`btnCloseStudent${id}Modal`}>
+									<button
+										type="button"
+										className="btn btn-secondary"
+										data-bs-dismiss="modal"
+										id={`btnCloseStudent${id}Modal`}
+									>
 										Descartar
 									</button>
 									<button type="submit" className="btn btn-primary">

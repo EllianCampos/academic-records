@@ -6,75 +6,64 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
 
   const handleDelete = (id) => {
     Swal.fire({
-			title: "Eliminar estudiante",
-			text: "¿Estás seguro que deseas eliminar el estudiante?",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#d33",
-			cancelButtonColor: "##6c757d",
-			confirmButtonText: "Si, Eliminar",
-			cancelButtonText: "Cancelar"
-		}).then((result) => {
-			if (result.isConfirmed) {
+      title: "Eliminar estudiante",
+      text: "¿Estás seguro que deseas eliminar el estudiante?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "##6c757d",
+      confirmButtonText: "Si, Eliminar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
         Swal.showLoading()
-				fetch(`/api/students/${id}?courseCode=${courseCode}`, { method: 'DELETE' })
-				.then(res => res.json())
-				.then(res => {
-          Swal.close()
-					if (res.errorMessage) {
-						Swal.fire({
-							title: 'Error, algo salio mal',
-							text: res.errorMessage,
-							icon: 'error',
-							confirmButtonText: 'Aceptar'
-						})
-					} else {
-						Swal.fire({
-							title: "Estudiante Eliminado",
-							text: res.message,
-							icon: "success"
-						}).then(result => {
-              location.href = `/courses/${courseCode}`
-            })
-					}
-				})
-			}
-		});
+        fetch(`/api/students/${id}?courseCode=${courseCode}`, { method: 'DELETE' })
+          .then(res => res.json())
+          .then(res => {
+            Swal.close()
+            if (res.errorMessage) {
+              Swal.fire({
+                title: 'Error, algo salio mal',
+                text: res.errorMessage,
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+              })
+            } else {
+              Swal.fire({
+                title: "Estudiante Eliminado",
+                text: res.message,
+                icon: "success"
+              }).then(result => {
+                location.href = `/courses/${courseCode}`
+              })
+            }
+          })
+      }
+    });
   }
 
   return (
     <section className="mt-3">
-      <div className="d-flex justify-content-between mb-3">
-        <h3 className="text-primary">Matrícula</h3>
-        <AddStudentModal
-          btnText='Nuevo estudiante'
-          icon='bi bi-plus-person-plus'
-          color='success'
-          method='POST'
-          id='editStudentModal'
-          courseCode={courseCode}
-          fetchStudents={fetchStudents}
-        />
-      </div>
-      <div className="overflow-scroll">
-        <table className="table table-striped mt-3 overflow-scroll">
+      <h3 className="text-primary">Matrícula</h3>
+      <div className="table-responsive" style={{ maxHeight: "50vh" }}>
+        <table className="table table-striped mt-3">
           <thead>
             <tr>
-              <th></th>
-              <th>Cédula</th>
-              <th>Apellidos</th>
-              <th>Nombre</th>
-              <th>Fecha de nacimiento</th>
-              <th>Genero</th>
-              <th>Teléfono</th>
-              <th>Correo electrónico</th>
-              <th>Discapacidad</th>
-              <th>Descripción de la discapacidad</th>
-              <th>Provincia</th>
-              <th>Cantón</th>
-              <th>Distrito</th>
-              <th>Comunidad</th>
-              <th>Observaciones</th>
+              <th className="sticky-top"></th>
+              <th className="sticky-top">Cédula</th>
+              <th className="sticky-top">Apellidos</th>
+              <th className="sticky-top">Nombre</th>
+              <th className="sticky-top">Fecha de nacimiento</th>
+              <th className="sticky-top">Genero</th>
+              <th className="sticky-top">Teléfono</th>
+              <th className="sticky-top">Correo electrónico</th>
+              <th className="sticky-top">Discapacidad</th>
+              <th className="sticky-top">Descripción de la discapacidad</th>
+              <th className="sticky-top">Provincia</th>
+              <th className="sticky-top">Cantón</th>
+              <th className="sticky-top">Distrito</th>
+              <th className="sticky-top">Comunidad</th>
+              <th className="sticky-top">Observaciones</th>
             </tr>
           </thead>
           <tbody className="mt-3">
@@ -90,28 +79,17 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
                     courseCode={courseCode}
                     fetchStudents={fetchStudents}
                   />
-                  <button 
+                  <button
                     className="btn btn-danger ms-2"
                     onClick={() => handleDelete(student.cedula)}
                   >
                     <i className="bi bi-trash"></i>
                   </button>
-               
-                  {/* <p className="position-absolute bottom-0 start-0 ms-3 mb-4">
-                    {student.updatedBy === null ?
-                      <><span className="fw-bold">Matriculado por: </span> {student.createdBy} </>
-                      :
-                      <><span className="fw-bold">Datos actualizados por: </span> {student.updatedBy} </>
-                    }
-                  </p> */}
                 </td>
                 <td>{student.cedula}</td>
                 <td>{student.lastname}</td>
                 <td>{student.name}</td>
-                <td>
-                  {/* {student.bornDate.substring(0,10)} */}
-                  <input type="date" value={student.bornDate.substring(0, 10)} readOnly />
-                </td>
+                <td><input type="date" value={student.bornDate.substring(0, 10)} readOnly /></td>
                 <td>{student.gender}</td>
                 <td>{student.phone}</td>
                 <td>{student.email}</td>
@@ -126,6 +104,17 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="d-flex justify-content-end mt-3">
+        <AddStudentModal
+          btnText='Nuevo estudiante'
+          icon='bi bi-plus-person-plus'
+          color='success'
+          method='POST'
+          id='editStudentModal'
+          courseCode={courseCode}
+          fetchStudents={fetchStudents}
+        />
       </div>
     </section>
   )
