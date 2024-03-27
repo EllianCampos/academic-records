@@ -193,7 +193,7 @@ export default function CoursesPage() {
 				<section className="d-flex justify-content-center">
 					<div className="bg-light text-primary fw-bold fs-5 p-5 rounded-5 text-center">
 						<p>Actualmente no tienes cursos activos</p>
-						<Link href='/courses/new' className="text-success">Crear mi primer curso</Link>
+						<Link href='/courses/new' className="text-success">Crear un curso</Link>
 					</div>
 				</section>
 				:
