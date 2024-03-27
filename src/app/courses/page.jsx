@@ -176,10 +176,8 @@ export default function CoursesPage() {
 				</div>
 			</div>
 
-			<h1 className="mt-3 text-center">Mis cursos</h1>
-
 			<div className="d-flex justify-content-between py-2">
-				<h2 className="mt-3">Cursos Activos</h2>
+				<h2 className="mt-3">Cursos</h2>
 				<div>
 					<Link
 						href='/courses/new'
