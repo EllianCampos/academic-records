@@ -302,7 +302,7 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 									/> */}
 									<select
 										defaultValue={provincia}
-										onClick={(event) => {
+										onChange={(event) => {
 											setcanton('')
 											setCantones([])
 											setDistrito('')
