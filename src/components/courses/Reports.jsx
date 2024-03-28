@@ -87,7 +87,7 @@ export default function Reports(props) {
   }
 
   return (
-    <section className="overflow-scroll">
+    <section>
       <div className="d-flex justify-content-around mb-2">
         <button
           className="btn btn-success"
@@ -104,26 +104,28 @@ export default function Reports(props) {
         </button>
       </div>
 
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            {reportDataHeaders.map((header, index) => (
-              <th key={index}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {reportDataRows.map((row, indexRow) => (
-            <tr key={indexRow}>
-              {reportDataHeaders.map((header, indexHeader) => (
-                <td key={`rowHead${indexHeader}x${indexRow}`}>
-                  {row[indexHeader]}
-                </td>
+      <div className="table-responsive" style={{ maxHeight: "75vh" }}>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              {reportDataHeaders.map((header, index) => (
+                <th className="sticky-top" key={index}>{header}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {reportDataRows.map((row, indexRow) => (
+              <tr key={indexRow}>
+                {reportDataHeaders.map((header, indexHeader) => (
+                  <td key={`rowHead${indexHeader}x${indexRow}`}>
+                    {row[indexHeader]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   )
 }

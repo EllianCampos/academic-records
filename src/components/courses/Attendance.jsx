@@ -138,45 +138,45 @@ export default function Attendance(props) {
             </button>
           </div>
         </form>
-
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Descripción</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {attendanceHeaders.map(item => (
-              <tr key ={item.id}>
-                <td>
-                  {/* {item.date.substring(0, 10)} */}
-                  <input type="date" className="m-1" value={item.date != null && (item.date.substring(0,10))} readOnly />
-                </td>
-                <td>{item.description}</td>
-                <td>
-                  <AttendanceModal attendanceHeader={item} courseCode={props.courseCode} />
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-primary mt-2"
-                    onClick={() => {
-                      setMethod('PUT')
-                      setId(item.id)
-                      setDate(item.date.substring(0, 10))
-                      setDescription(item.description)
-                    }}
-                  >
-                    Editar
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {attendanceHeaders.map(item => (
+                <tr key={item.id}>
+                  <td>
+                    {/* {item.date.substring(0, 10)} */}
+                    <input type="date" className="m-1" value={item.date != null && (item.date.substring(0, 10))} readOnly />
+                  </td>
+                  <td>{item.description}</td>
+                  <td className="d-flex justify-content-center">
+                    <AttendanceModal attendanceHeader={item} courseCode={props.courseCode} />
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-primary mt-2"
+                        onClick={() => {
+                          setMethod('PUT')
+                          setId(item.id)
+                          setDate(item.date.substring(0, 10))
+                          setDescription(item.description)
+                        }}
+                      >
+                        Editar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   )

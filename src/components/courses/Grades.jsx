@@ -183,7 +183,6 @@ export default function Grades(props) {
                   <th>Nombre</th>
                   <th>Puntos</th>
                   <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -191,7 +190,7 @@ export default function Grades(props) {
                   <tr key={gradeHeader.id}>
                     <td>{gradeHeader.name}</td>
                     <td>{gradeHeader.points}</td>
-                    <td>
+                    <td className="d-flex justify-content-center">
                       <GradeModal
                         key={gradeHeader.id}
                         gradeHeaderId={gradeHeader.id}
@@ -201,20 +200,20 @@ export default function Grades(props) {
                         courseCode={props.courseCode}
                         setShowSecondarySelect={setShowSecondarySelect}
                       />
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => {
-                          setId(gradeHeader.id)
-                          setName(gradeHeader.name)
-                          setPoints(gradeHeader.points)
-                          setMethod('PUT')
-                        }}
-                      >
-                        Editar
-                      </button>
+                      <div className="mt-2">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => {
+                            setId(gradeHeader.id)
+                            setName(gradeHeader.name)
+                            setPoints(gradeHeader.points)
+                            setMethod('PUT')
+                          }}
+                        >
+                          Editar
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
