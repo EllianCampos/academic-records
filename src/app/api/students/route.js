@@ -230,7 +230,7 @@ export async function PUT(req) {
 		// Update
 		const student= await prisma.students.update({
 			where: {
-				id: studentFound.id
+				id: studentFound.studentId
 			},
 			data: {
                 name: newStudent.data.name,
