@@ -44,7 +44,18 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
 
   return (
     <section className="mt-3">
-      <h3 className="text-primary">Matrícula</h3>
+      <div className="d-flex justify-content-between mt-3">
+        <h3 className="text-primary">Matrícula</h3>
+        <AddStudentModal
+          btnText='Nuevo estudiante'
+          icon='bi bi-plus-person-plus'
+          color='success'
+          method='POST'
+          id='editStudentModal'
+          courseCode={courseCode}
+          fetchStudents={fetchStudents}
+        />
+      </div>
       <div className="table-responsive" style={{ maxHeight: "50vh" }}>
         <table className="table table-striped mt-3">
           <thead>
@@ -104,17 +115,6 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="d-flex justify-content-end mt-3">
-        <AddStudentModal
-          btnText='Nuevo estudiante'
-          icon='bi bi-plus-person-plus'
-          color='success'
-          method='POST'
-          id='editStudentModal'
-          courseCode={courseCode}
-          fetchStudents={fetchStudents}
-        />
       </div>
     </section>
   )
