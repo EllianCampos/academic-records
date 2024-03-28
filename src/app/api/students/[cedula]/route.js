@@ -111,7 +111,7 @@ export async function DELETE(req, { params }) {
         // Delete student
         const deleted = await prisma.students.delete({
             where: {
-                id: studentFound.id
+                id: studentFound.studentId
             }
         })
 
