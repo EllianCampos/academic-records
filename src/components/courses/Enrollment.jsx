@@ -58,23 +58,23 @@ export default function Enrollment({ students, courseCode, fetchStudents }) {
       </div>
       <div className="table-responsive" style={{ maxHeight: "50vh" }}>
         <table className="table table-striped mt-3">
-          <thead>
+          <thead className="sticky-top">
             <tr>
-              <th className="sticky-top"></th>
-              <th className="sticky-top">Cédula</th>
-              <th className="sticky-top">Apellidos</th>
-              <th className="sticky-top">Nombre</th>
-              <th className="sticky-top">Fecha de nacimiento</th>
-              <th className="sticky-top">Genero</th>
-              <th className="sticky-top">Teléfono</th>
-              <th className="sticky-top">Correo electrónico</th>
-              <th className="sticky-top">Discapacidad</th>
-              <th className="sticky-top">Descripción de la discapacidad</th>
-              <th className="sticky-top">Provincia</th>
-              <th className="sticky-top">Cantón</th>
-              <th className="sticky-top">Distrito</th>
-              <th className="sticky-top">Comunidad</th>
-              <th className="sticky-top">Observaciones</th>
+              <th ></th>
+              <th>Cédula</th>
+              <th>Apellidos</th>
+              <th>Nombre</th>
+              <th>Fecha de nacimiento</th>
+              <th>Genero</th>
+              <th>Teléfono</th>
+              <th>Correo electrónico</th>
+              <th>Discapacidad</th>
+              <th>Descripción de la discapacidad</th>
+              <th>Provincia</th>
+              <th>Cantón</th>
+              <th>Distrito</th>
+              <th>Comunidad</th>
+              <th>Observaciones</th>
             </tr>
           </thead>
           <tbody className="mt-3">
