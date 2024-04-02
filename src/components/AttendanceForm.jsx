@@ -105,6 +105,7 @@ export default function AttendanceForm(props) {
         className="form-control mt-2"
         value={state}
         onChange={event => setState(event.target.value)}
+        required
       >
         <option value=""></option>
         <option value="PRESENTE">PRESENTE</option>

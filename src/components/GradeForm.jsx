@@ -104,6 +104,7 @@ export default function GradeForm({ evaluationId, gradeHeaderId, item, isAutoCal
           value={points}
           onChange={event => setPoints(event.target.value)}
           className="form-control"
+          required
         />
         <label htmlFor="points">Puntos obtenidos</label>
       </div>
