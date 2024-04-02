@@ -142,14 +142,25 @@ export default function AddStudentModal({ btnText, icon, color, method, id, stud
 						<div className="modal-body">
 							<form onSubmit={handleSubmit} id={`FormStudent${id}Modal`}>
 								<div className="form-floating mb-3">
-									<input
-										value={cedula}
-										onChange={event => setCedula(event.target.value)}
-										type="number"
-										className="form-control"
-										id="cedula"
-										required
-									/>
+									{method === 'POST' ?
+										<input
+											value={cedula}
+											onChange={event => setCedula(event.target.value)}
+											type="number"
+											className="form-control"
+											id="cedula"
+											required
+										/>
+										:
+										<input
+											value={cedula}
+											onChange={event => setCedula(event.target.value)}
+											type="number"
+											className="form-control"
+											id="cedula"
+											readOnly
+										/>
+									}
 									<label
 										htmlFor="cedula"
 									>
