@@ -39,7 +39,8 @@ export async function GET(req, { params }) {
 					createdAt: true,
 					createdBy: true,
 					updatedAt: true,
-					updatedBy: true
+					updatedBy: true,
+					openEnrollment: true,
 				}
 			},
 
@@ -134,6 +135,7 @@ export async function PUT(req, { params }) {
 				quota: newCourse.data.quota,
 				isFinished: newCourse.data.isFinished,
 				attendacePercentaje: newCourse.data.attendacePercentaje,
+				openEnrollment: newCourse.data.openEnrollment,
 				updatedBy: `${user.name} ${user.lastname}`,
 				updatedAt: new Date()
 			}

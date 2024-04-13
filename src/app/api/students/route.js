@@ -1,5 +1,9 @@
 import { prisma } from "@/libs/prisma";
 import { studentSchema } from "@/schemas/student.schema";
+import CheckOpenEnrrollment from "@/services/enrollment/CheckOpenEnrrollment";
+import CreateStudent from "@/services/students/CreateStudent";
+import GetCourseByUser from "@/services/users/GetCourseByUser";
+import GetUserFromToken from "@/services/users/GetUserFromToken";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
@@ -72,17 +76,6 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
-    // Validate if the request contains a token
-    let user = {}
-    try {
-        let token = await getToken({ req })
-        user = token.user
-    } catch (error) {
-        return NextResponse.json({
-            errorMessage: 'Acceso NO autorizado'
-        }, { status: 401 });
-    }
-
     // Validate request
     let newStudent
     try {
@@ -96,86 +89,30 @@ export async function POST(req) {
     }
 
     try {
+        // Validate if the enrollment of the course is open
+        const enrollmentIsOpen = await CheckOpenEnrrollment(newStudent.data.courseCode)
+
+        // Case when enrollment is open
+        if (enrollmentIsOpen && !newStudent.data.enrolledByTeacher) {
+            const result = await CreateStudent('Matriculado por medio del enlace para estudiantes', newStudent)
+            if (result[0]) return NextResponse.json({ errorMessage: result[0] }, { status: 500 })
+            return NextResponse.json(result[1])            
+        }
+
+        // Get user from token
+        const user = await GetUserFromToken(req)
+        if (user[0] !== null) return NextResponse.json({ errorMessage: user[0] }, { status: 401 }) 
+
         // Validate if the course exists and belongs to the user
-        const courseFound = await prisma.usercourses.findFirst({
-            where: {
-                courseCode: newStudent.data.courseCode,
-                userId: user.id
-            },
-            include: {
-                courses: true
-            }
-        })
-        if (!courseFound) {
-            return NextResponse.json({ errorMessage: 'El curso no existe' })
-        }
+        const course = await GetCourseByUser(user.id, newStudent.data.courseCode)
+        if(course[0] !== null) return NextResponse.json({ errorMessage: course[0] }, { status: 404 })
 
-        // Validate if the student exists
-        const studentFound = await prisma.enrollment.findFirst({
-            where: {
-                studentCedula: newStudent.data.cedula,
-                courseCode: newStudent.data.courseCode
-            }
-        })
-        if (studentFound) {
-            return NextResponse.json({ errorMessage: 'El estudiante ya ha sido registrado' })
-        }
-
-        // validate if there is space left in the course
-        if (courseFound.courses.numberStudentsEnrolled >= courseFound.courses.quota) {
-            return NextResponse.json({ errorMessage: 'El curso ha alcanzado la cantidad máxima de estudiantes matriuclados' })
-        }
-
-        // Create
-        const student = await prisma.students.create({
-            data: {
-                cedula: newStudent.data.cedula,
-                name: newStudent.data.name,
-                lastname: newStudent.data.lastname,
-                bornDate: new Date(newStudent.data.bornDate),
-                gender: newStudent.data.gender,
-                phone: newStudent.data.phone,
-                email: newStudent.data.email,
-                disability: newStudent.data.disability,
-                disabilityDescription: newStudent.data.disabilityDescription,
-                provincia: newStudent.data.provincia,
-                canton: newStudent.data.canton,
-                distrito: newStudent.data.distrito,
-                comunidad: newStudent.data.comunidad,
-                observations: newStudent.data.observations,
-                createdBy: `${user.name} ${user.lastname}`
-            }
-        })
-
-        // Create the enrollment
-        const enrollment = await prisma.enrollment.create({
-            data: {
-                courseCode: courseFound.courseCode,
-                studentId: student.id,
-                studentCedula: student.cedula,
-                createdBy: `${user.name} ${user.lastname}`
-            }
-        })
-
-        // add count students enrrolleds
-        const count = await prisma.courses.update({
-            where: {
-                code: courseFound.courseCode
-            },
-            data: {
-                numberStudentsEnrolled: {
-                    increment: 1
-                }
-            }
-        })
-
-        // Validate if was created
-        if (!student || !enrollment || !count) {
-            return NextResponse.json({ errorMessage: 'Error registrando el estudiante' }, { status: 500 })
-        }
-
-        return NextResponse.json(student)
-
+        // Create student
+        const result = await CreateStudent(`${user[1].name} ${user[1].lastname}`, newStudent)
+        if (result[0]) return NextResponse.json({ errorMessage: result[0] }, { status: 500 })
+            
+        return NextResponse.json(result[1])            
+        
     } catch (error) {
         console.log(error)
         return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import GetStudentByBasicData from "../students.js/students.services";
+import GetStudentByBasicData from "../students/GetStudentByBasicData";
 import { prisma } from "@/libs/prisma";
 import GetGradesReport from "./GetGradesReport";
 import GetAttendanceReport from "./GetAttendanceReport";

@@ -11,6 +11,11 @@ export const studentSchema = z.object({
         .min(1, {
             message: 'El código del curso es requerido'
         }),
+    enrolledByTeacher: z
+        .boolean({
+            required_error: 'Incluye <<< enrolledByTeacher >>> en la petición',
+            invalid_type_error: 'Debe ser un boleano'
+        }),
     cedula: z.
         number({
             required_error: 'Incluye <<< cedula >>> en la petición',

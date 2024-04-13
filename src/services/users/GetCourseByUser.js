@@ -1,6 +1,6 @@
 import { prisma } from "@/libs/prisma";
 
-export default async function GetCourse(userId, courseCode) {
+export default async function GetCourseByUser(userId, courseCode) {
   const result = await prisma.usercourses.findFirst({
     where: {
       userId,

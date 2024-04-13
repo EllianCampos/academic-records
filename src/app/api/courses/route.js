@@ -85,6 +85,7 @@ export async function POST(req) {
 				endDate: new Date(newCourse.data.endDate),
 				quota: newCourse.data.quota,
 				isFinished: newCourse.data.isFinished,
+				openEnrollment: newCourse.data.openEnrollment,
 				attendacePercentaje: newCourse.data.attendacePercentaje,
 				createdBy: `${user.name} ${user.lastname}`
 			}

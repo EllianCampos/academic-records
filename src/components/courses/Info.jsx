@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 export default function Info(props) {
+  console.log(props.course)
   return (
     <section className="mt-3 position-relative">
       <h3 className="text-primary">Información del curso</h3>
@@ -40,12 +41,23 @@ export default function Info(props) {
           </p>
         </div>
       </div>
+      <div className="">
+        <p className="mt-3 me-2">
+          <span className="fw-bold">Matrícula abierta: </span>
+          {props.course.openEnrollment ? 'SI' : 'NO'}
+        </p>
+        {props.course.openEnrollment && (
+          <>
+            <div className="alert alert-info">academic-records.vercel.app/enrollment/{props.course.code}</div>
+          </>
+        )}
+      </div>
       <div className="row">
         <p><span className="fw-bold">Horario: </span>{props.course.schedule}</p>
       </div>
       <div className="row">
         <p className="fw-bold">Profesores: </p>
-        {props.teachers.map(teacher => ( 
+        {props.teachers.map(teacher => (
           <p key={teacher.id}>
             {`- ${teacher.fullname}`}
           </p>

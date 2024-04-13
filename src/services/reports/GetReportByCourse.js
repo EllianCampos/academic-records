@@ -1,6 +1,6 @@
 import { prisma } from "@/libs/prisma";
-import GetCourse from "../users/GetCourse";
-import GetStudentsByCourse from "../students.js/GetSudentsByCourse";
+import GetCourse from "../users/GetCourseByUser";
+import GetStudentsByCourse from "../students/GetSudentsByCourse";
 import { NextResponse } from "next/server";
 import GetReportByStudent from "./GetReportByStudent";
 

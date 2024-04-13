@@ -71,4 +71,9 @@ export const courseSchema = z.object({
         .multipleOf(0.01, {
             message: 'El porcentaje de asistencia debe ser un numero entero o con hasta 2 decimales'
         }),
+    openEnrollment: z
+        .boolean({
+            required_error: 'Incluye <<< openEnrollment >>> en la petición',
+            invalid_type_error: 'Indica si la matriucula esta abierta con true o false'
+        })
 })

@@ -17,6 +17,7 @@ export default function NewEditCoursePage({ params }) {
 	const [isFinished, setIsFinished] = useState(false)
 	const [attendacePercentaje, setAttendacePercentaje] = useState('')
 	const [amICreator, setAmICreator] = useState(false)
+	const [openEnrollment, setOpenEnrollment] = useState(false)
 
 	const fetchCourseData = () => {
 		fetch(`/api/courses/${params.code}`)
@@ -32,6 +33,8 @@ export default function NewEditCoursePage({ params }) {
 				setSchedule(data.schedule)
 				setIsFinished(data.isFinished)
 				setAmICreator(res.isCreator ? true : false)
+				setOpenEnrollment(data.openEnrollment ? true : false)
+				console.log(res)
 			})
 	}
 
@@ -51,7 +54,8 @@ export default function NewEditCoursePage({ params }) {
 				endDate,
 				quota: Number(quota),
 				isFinished: params.code ? isFinished : false,
-				attendacePercentaje: Number(attendacePercentaje)
+				attendacePercentaje: Number(attendacePercentaje),
+				openEnrollment: params.code ? openEnrollment : false
 			})
 		})
 			.then(res => {
@@ -205,6 +209,7 @@ export default function NewEditCoursePage({ params }) {
 					/>
 				</div>
 				{params.code && (
+					<>
 					<div className="mt-3">
 						<input
 							checked={isFinished}
@@ -215,6 +220,17 @@ export default function NewEditCoursePage({ params }) {
 						/>
 						<label htmlFor="isFinished" className="form-check-label ms-3">Curso finalizado</label>
 					</div>
+					<div className="mt-3">
+						<input 
+							checked={openEnrollment}
+							onChange={event => setOpenEnrollment(event.target.checked)}
+							type="checkbox" 
+							className="form-check-input"
+							id="openEnrollment" 
+						/>
+						<label htmlFor="openEnrollment" className="form-check-lable ms-3">Matrícula abierta</label>
+					</div>
+					</>
 				)}
 				{/* Buttons */}
 				<div className="mt-3 d-flex justify-content-between">

@@ -1,6 +1,7 @@
 'use client'
 import Swal from "sweetalert2";
 import AddStudentModal from "../Modals/AddStudentModal";
+import { useState } from "react";
 
 export default function Enrollment({ students, courseCode, fetchStudents }) {
 

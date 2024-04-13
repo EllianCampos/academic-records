@@ -16,7 +16,7 @@ model attendance {
   createdBy       String?           @db.VarChar(100)
   updatedAt       DateTime?         @db.DateTime(0)
   updatedBy       String?           @db.VarChar(100)
-  courses         courses           @relation(fields: [courseCode], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_courseId_attendance")
+  courses         courses           @relation(fields: [courseCode], references: [code], onDelete: Cascade, onUpdate: NoAction, map: "fk_courseId_attendance")
   attendancelines attendancelines[]
 
   @@index([courseCode], map: "fk_courseId_attendance_idx")
@@ -27,7 +27,7 @@ model attendancelines {
   attendaceId  Int
   studentId    Int
   state        String     @db.VarChar(50)
-  observations String     @db.VarChar(50)
+  observations String     @db.VarChar(500)
   createdAt    DateTime?  @default(now()) @db.DateTime(0)
   createdBy    String?    @db.VarChar(100)
   updatedAt    DateTime?  @db.DateTime(0)
@@ -60,6 +60,7 @@ model courses {
   createdBy              String?       @db.VarChar(100)
   updatedAt              DateTime?     @db.DateTime(0)
   updatedBy              String?       @db.VarChar(100)
+  openEnrollment         Boolean?      @default(false)
   attendance             attendance[]
   enrollment             enrollment[]
   evaluations            evaluations[]
