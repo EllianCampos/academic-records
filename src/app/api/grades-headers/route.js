@@ -45,7 +45,6 @@ export async function GET(req) {
 		return NextResponse.json(grades)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
@@ -113,7 +112,6 @@ export async function POST(req) {
 		return NextResponse.json(gradeHeader)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

@@ -51,7 +51,6 @@ export default function AttendanceForm(props) {
             confirmButtonText: 'Aceptar'
           })
         } else {
-          console.log(res)
           const temp = [...props.data]
           let itemFound = temp.find(x => x.id == props.item.id)
           itemFound.attendancelines = [res]

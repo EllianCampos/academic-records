@@ -49,7 +49,6 @@ export async function PUT(req) {
 		}, { status: 200 })
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({
 			errorMessage: 'Error interno del servidor'
 		}, { status: 500 })

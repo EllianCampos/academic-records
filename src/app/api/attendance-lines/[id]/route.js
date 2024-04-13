@@ -96,7 +96,6 @@ export async function PUT(req, { params }) {
 		return NextResponse.json(attendanceLine)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
@@ -154,7 +153,6 @@ export async function DELETE(req, { params }) {
 				id: Number(params.id)
 			}
 		})
-		console.log(attendanceFound)
 		if (!attendanceFound) {
 			return NextResponse.json({ errorMessage: 'La asistencia no existe' }, { status: 400 })
 		}
@@ -178,7 +176,6 @@ export async function DELETE(req, { params }) {
 		return NextResponse.json({ message: 'Calificación eliminada exitosamente' })
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

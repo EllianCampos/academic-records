@@ -43,7 +43,6 @@ export async function GET(req) {
 			return NextResponse.json(evaluations)
 
 	} catch (error) {
-			console.log(error)
 			return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
@@ -67,7 +66,6 @@ export async function POST(req) {
 			return NextResponse.json(newEvaluation.error)
 		}
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Formato de peticion no valido' }, { status: 400 })
 	}
 

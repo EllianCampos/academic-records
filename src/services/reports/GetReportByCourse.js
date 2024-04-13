@@ -13,7 +13,6 @@ export default async function GetReportByCourse(userId, courseCode) {
   let report = []
   for (const student of students) {
     const reportByStudent = await GetReportByStudent(courseCode, student.cedula, student.bornDate)
-    // console.log(reportByStudent)
     report.push(reportByStudent)
   }
 

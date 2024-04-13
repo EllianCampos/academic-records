@@ -49,7 +49,7 @@ export async function POST(request) {
 			message: 'Registrado existosamente'
 		}, { status: 201 })
 
-	} catch (error) { console.log(error)
+	} catch (error) {
 		return NextResponse.json({
 			errorMessage: 'Error interno del servidor'
 		}, { status: 500 })

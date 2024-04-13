@@ -55,7 +55,7 @@ export async function DELETE(req, { params }) {
 
     return NextResponse.json({ message: 'Profesor eliminado exitosamente' })
 
-  } catch (error) { console.log(error)
+  } catch (error) {
     return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
   }
 }

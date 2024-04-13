@@ -12,7 +12,6 @@ export default function EnrollmentPage(props) {
     fetch(`/api/enrollment/${props.params.code}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res)
         if (res.ok) {
 
         } else {

@@ -97,7 +97,6 @@ export async function PUT(req, { params }) {
 		return NextResponse.json(grade)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
@@ -168,7 +167,6 @@ export async function DELETE(req, { params }) {
 		return NextResponse.json({ message: 'Calificación eliminada exitosamente' })
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

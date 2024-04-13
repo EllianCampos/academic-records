@@ -83,7 +83,6 @@ export default function Reports(props) {
     setReportDataHeaders(Array.from(reportHeaders))
     setReportDataRows(reportRows)
     Swal.close()
-    console.log(reportRows)
   }
 
   return (

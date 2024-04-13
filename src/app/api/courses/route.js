@@ -108,7 +108,6 @@ export async function POST(req) {
 		return NextResponse.json(course)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

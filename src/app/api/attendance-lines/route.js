@@ -63,7 +63,7 @@ export async function GET(req) {
 
 		return NextResponse.json(attendancelines)
 
-	} catch (error) { console.log(error)
+	} catch (error) {
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
@@ -154,7 +154,6 @@ export async function POST(req) {
 		return NextResponse.json(attendanceLine)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }

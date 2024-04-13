@@ -31,7 +31,6 @@ export async function POST(req) {
         return NextResponse.json({ message: 'Gracias por tu comentario. Realmente nos ayuda a continuar mejorando' })
 
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
     }
 }

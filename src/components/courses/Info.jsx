@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 export default function Info(props) {
-  console.log(props.course)
   return (
     <section className="mt-3 position-relative">
       <h3 className="text-primary">Información del curso</h3>

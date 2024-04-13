@@ -48,7 +48,6 @@ export default function SignUpPage() {
       .then(response => {
         if (response) {
           setError(response.errorMessage)
-          console.log(error)
         }
       })
   }

@@ -34,7 +34,6 @@ export default function NewEditCoursePage({ params }) {
 				setIsFinished(data.isFinished)
 				setAmICreator(res.isCreator ? true : false)
 				setOpenEnrollment(data.openEnrollment ? true : false)
-				console.log(res)
 			})
 	}
 

@@ -38,7 +38,6 @@ export async function GET(req) {
 		return NextResponse.json(response)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({
 			errorMessage: 'Error interno del servidor'
 		}, { status: 500 })

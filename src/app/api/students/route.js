@@ -70,7 +70,6 @@ export async function GET(req) {
         return NextResponse.json(result)
 
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
     }
 }
@@ -114,7 +113,6 @@ export async function POST(req) {
         return NextResponse.json(result[1])            
         
     } catch (error) {
-        console.log(error)
         return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
     }
 }
@@ -196,7 +194,6 @@ export async function PUT(req) {
 		return NextResponse.json(student)
 
 	} catch (error) {
-		console.log(error)
 		return NextResponse.json({ errorMessage: 'Error interno del servidor' }, { status: 500 })
 	}
 }
