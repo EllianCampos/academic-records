@@ -30,7 +30,7 @@ export default function EnrollmentPage(props) {
       {showError ? (
         <>
           <div className="alert alert-danger mt-3 fs-4 text-center">
-            <p className="m-0">La matricula este curso no esta disponible</p>
+            <p className="m-0">La matricula para este curso no esta disponible</p>
           </div>
           <div className="d-flex justify-content-center">
             <Link href="/" className="btn btn-success">Volver</Link>

@@ -47,7 +47,9 @@ export default function Info(props) {
         </p>
         {props.course.openEnrollment && (
           <>
-            <div className="alert alert-info">academic-records.vercel.app/enrollment/{props.course.code}</div>
+            <div className="alert alert-info">
+              <a href={`https://academic-records.vercel.app/enrollment/${props.course.code}`} target="_blank">academic-records.vercel.app/enrollment/{props.course.code}</a>
+            </div>
           </>
         )}
       </div>
